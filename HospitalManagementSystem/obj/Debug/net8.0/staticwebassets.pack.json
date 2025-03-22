@@ -21,6 +21,14 @@
       "PackagePath": "staticwebassets\\favicon.png"
     },
     {
+      "Id": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem\\HospitalManagementSystem\\wwwroot\\images\\hospital-crm.jpg",
+      "PackagePath": "staticwebassets\\images\\hospital-crm.jpg"
+    },
+    {
+      "Id": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem\\HospitalManagementSystem\\wwwroot\\stylesheets\\login.css",
+      "PackagePath": "staticwebassets\\stylesheets\\login.css"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.HospitalManagementSystem.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },
