@@ -32,3 +32,37 @@ D:\Learning\Projects\Hospital Management System C#\HospitalManagementSystem\Hosp
 D:\Learning\Projects\Hospital Management System C#\HospitalManagementSystem\HospitalManagementSystem\obj\Debug\net8.0\HospitalManagementSystem.genruntimeconfig.cache
 D:\Learning\Projects\Hospital Management System C#\HospitalManagementSystem\HospitalManagementSystem\obj\Debug\net8.0\ref\HospitalManagementSystem.dll
 D:\Learning\Projects\Hospital Management System C#\HospitalManagementSystem\HospitalManagementSystem\obj\Debug\net8.0\HospitalManagementSystem.sourcelink.json
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\bin\Debug\net8.0\appsettings.Development.json
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\bin\Debug\net8.0\appsettings.json
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\bin\Debug\net8.0\HospitalManagementSystem.staticwebassets.runtime.json
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\bin\Debug\net8.0\HospitalManagementSystem.staticwebassets.endpoints.json
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\bin\Debug\net8.0\HospitalManagementSystem.exe
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\bin\Debug\net8.0\HospitalManagementSystem.deps.json
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\bin\Debug\net8.0\HospitalManagementSystem.runtimeconfig.json
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\bin\Debug\net8.0\HospitalManagementSystem.dll
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\bin\Debug\net8.0\HospitalManagementSystem.pdb
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\obj\Debug\net8.0\HospitalManagementSystem.GeneratedMSBuildEditorConfig.editorconfig
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\obj\Debug\net8.0\HospitalManagementSystem.AssemblyInfoInputs.cache
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\obj\Debug\net8.0\HospitalManagementSystem.AssemblyInfo.cs
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\obj\Debug\net8.0\HospitalManagementSystem.csproj.CoreCompileInputs.cache
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\obj\Debug\net8.0\HospitalManagementSystem.MvcApplicationPartsAssemblyInfo.cache
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\obj\Debug\net8.0\HospitalManagementSystem.sourcelink.json
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\obj\Debug\net8.0\scopedcss\Components\Layout\MainLayout.razor.rz.scp.css
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\obj\Debug\net8.0\scopedcss\Components\Layout\NavMenu.razor.rz.scp.css
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\obj\Debug\net8.0\scopedcss\bundle\HospitalManagementSystem.styles.css
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\obj\Debug\net8.0\scopedcss\projectbundle\HospitalManagementSystem.bundle.scp.css
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\obj\Debug\net8.0\staticwebassets.build.json
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\obj\Debug\net8.0\staticwebassets.development.json
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\obj\Debug\net8.0\staticwebassets\msbuild.HospitalManagementSystem.Microsoft.AspNetCore.StaticWebAssets.props
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\obj\Debug\net8.0\staticwebassets\msbuild.HospitalManagementSystem.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\obj\Debug\net8.0\staticwebassets\msbuild.build.HospitalManagementSystem.props
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.HospitalManagementSystem.props
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.HospitalManagementSystem.props
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\obj\Debug\net8.0\staticwebassets.pack.json
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\obj\Debug\net8.0\HospitalManagementSystem.dll
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\obj\Debug\net8.0\refint\HospitalManagementSystem.dll
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\obj\Debug\net8.0\HospitalManagementSystem.pdb
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\obj\Debug\net8.0\HospitalManagementSystem.genruntimeconfig.cache
+D:\WORK\HospitalManagementSystem-FE\HospitalManagementSystem\obj\Debug\net8.0\ref\HospitalManagementSystem.dll

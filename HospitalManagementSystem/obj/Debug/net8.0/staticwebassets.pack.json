@@ -1,31 +1,31 @@
 {
   "Files": [
     {
-      "Id": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem\\HospitalManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\HospitalManagementSystem.bundle.scp.css",
+      "Id": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\HospitalManagementSystem.bundle.scp.css",
       "PackagePath": "staticwebassets\\HospitalManagementSystem.6y2uhso0pz.bundle.scp.css"
     },
     {
-      "Id": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem\\HospitalManagementSystem\\wwwroot\\app.css",
+      "Id": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\app.css",
       "PackagePath": "staticwebassets\\app.css"
     },
     {
-      "Id": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem\\HospitalManagementSystem\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Id": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\bootstrap\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Id": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem\\HospitalManagementSystem\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Id": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Id": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem\\HospitalManagementSystem\\wwwroot\\favicon.png",
+      "Id": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\favicon.png",
       "PackagePath": "staticwebassets\\favicon.png"
     },
     {
-      "Id": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem\\HospitalManagementSystem\\wwwroot\\images\\hospital-crm.jpg",
+      "Id": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\images\\hospital-crm.jpg",
       "PackagePath": "staticwebassets\\images\\hospital-crm.jpg"
     },
     {
-      "Id": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem\\HospitalManagementSystem\\wwwroot\\stylesheets\\login.css",
+      "Id": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\login.css",
       "PackagePath": "staticwebassets\\stylesheets\\login.css"
     },
     {
