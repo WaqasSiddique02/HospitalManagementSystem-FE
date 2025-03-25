@@ -25,6 +25,10 @@
       "PackagePath": "staticwebassets\\images\\hospital-crm.jpg"
     },
     {
+      "Id": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\admin.css",
+      "PackagePath": "staticwebassets\\stylesheets\\admin.css"
+    },
+    {
       "Id": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\login.css",
       "PackagePath": "staticwebassets\\stylesheets\\login.css"
     },

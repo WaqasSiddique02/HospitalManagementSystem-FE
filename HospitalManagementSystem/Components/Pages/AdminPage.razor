@@ -1,0 +1,241 @@
+﻿@page "/admin"
+@rendermode InteractiveServer
+
+<div class="admin-container">
+    <header class="admin-header">
+        <h1>User Management</h1>
+        <div class="header-controls">
+            <input type="text" class="search-bar" placeholder="Search users..." @bind="searchTerm" @bind:event="oninput" @onkeyup="FilterUsers" />
+            <select class="role-filter" @bind="SelectedRole">
+                <option value="">All Roles</option>
+                <option value="Admin">Admin</option>
+                <option value="Doctor">Doctor</option>
+                <option value="Nurse">Nurse</option>
+            </select>
+            <button class="btn-add" @onclick="ShowInsertModal">
+                <i class="bi bi-plus-circle"></i> Add User
+            </button>
+        </div>
+    </header>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Full Name</th>
+                    <th>Role</th>
+                    <th>Created At</th>
+                    <th class="actions">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in FilteredUsers)
+                {
+                        <tr>
+                            <td>@user.Username</td>
+                            <td>@user.FullName</td>
+                            <td>@user.Role</td>
+                            <td>@user.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                            <td class="actions">
+                                <button class="btn-edit" @onclick="() => ShowEditModal(user)">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button class="btn-delete" @onclick="() => ShowDeleteModal(user)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (showModal)
+    {
+            <div class="modal-overlay" @onclick="CloseModalIfBackdrop">
+                <div class="modal-content" @onclick:stopPropagation>
+                    <div class="modal-header">
+                        <h5>@(isEditMode ? "Edit User" : "Add User")</h5>
+                        <button class="btn-close" @onclick="CloseModal">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" @bind="userToModify.Username" @bind:event="oninput" />
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" @bind="userToModify.PasswordHash" @bind:event="oninput" />
+                        </div>
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" @bind="userToModify.FullName" @bind:event="oninput" />
+                        </div>
+                        <div class="form-group">
+                            <label>Role</label>
+                            <select @bind="userToModify.Role">
+                                <option value="Admin">Admin</option>
+                                <option value="Doctor">Doctor</option>
+                                <option value="Nurse">Nurse</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn-cancel" @onclick="CloseModal">Cancel</button>
+                        <button class="btn-save" @onclick="SaveUser">@(isEditMode ? "Update" : "Save")</button>
+                    </div>
+                </div>
+            </div>
+    }
+
+    @if (showDeleteConfirmation)
+    {
+            <div class="modal-overlay" @onclick="CloseModalIfBackdrop">
+                <div class="modal-content" @onclick:stopPropagation>
+                    <div class="modal-header">
+                        <h5>Confirm Delete</h5>
+                        <button class="btn-close" @onclick="CloseDeleteModal">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete user: <strong>@userToDelete.Username</strong>?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn-cancel" @onclick="CloseDeleteModal">Cancel</button>
+                        <button class="btn-delete" @onclick="DeleteUser">Delete</button>
+                    </div>
+                </div>
+            </div>
+    }
+</div>
+
+@code {
+    private List<User> Users = new();
+    private List<User> FilteredUsers = new();
+    private bool showModal = false;
+    private bool isEditMode = false;
+    private User userToModify = new();
+    private bool showDeleteConfirmation = false;
+    private User userToDelete = new();
+    private string searchTerm = "";
+
+    private string _selectedRole = "";
+    private string SelectedRole
+    {
+        get => _selectedRole;
+        set
+        {
+            _selectedRole = value;
+            FilterUsers();
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadUsers();
+        FilteredUsers = Users;
+    }
+
+    private async Task LoadUsers()
+    {
+        Users = new List<User>
+        {
+            new() { Username = "admin1", FullName = "Admin One", Role = "Admin", CreatedAt = DateTime.Now.AddDays(-1) },
+            new() { Username = "doctor1", FullName = "Doctor One", Role = "Doctor", CreatedAt = DateTime.Now.AddDays(-2) },
+            new() { Username = "nurse1", FullName = "Nurse One", Role = "Nurse", CreatedAt = DateTime.Now.AddDays(-3) }
+        };
+    }
+
+    private void FilterUsers()
+    {
+        FilteredUsers = Users.Where(u =>
+            (string.IsNullOrEmpty(searchTerm) || u.Username.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) || u.FullName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) &&
+            (string.IsNullOrEmpty(SelectedRole) || u.Role == SelectedRole)
+        ).ToList();
+    }
+
+    private void ShowInsertModal()
+    {
+        userToModify = new User();
+        isEditMode = false;
+        showModal = true;
+    }
+
+    private void ShowEditModal(User user)
+    {
+        userToModify = new User
+            {
+                Username = user.Username,
+                FullName = user.FullName,
+                Role = user.Role,
+                CreatedAt = user.CreatedAt,
+                PasswordHash = "temp"
+            };
+        isEditMode = true;
+        showModal = true;
+    }
+
+    private void CloseModal()
+    {
+        showModal = false;
+    }
+
+    private void SaveUser()
+    {
+        if (isEditMode)
+        {
+            var existingUser = Users.FirstOrDefault(u => u.Username == userToModify.Username);
+            if (existingUser != null)
+            {
+                existingUser.FullName = userToModify.FullName;
+                existingUser.Role = userToModify.Role;
+            }
+        }
+        else
+        {
+            Users.Add(new User
+                {
+                    Username = userToModify.Username,
+                    PasswordHash = userToModify.PasswordHash,
+                    FullName = userToModify.FullName,
+                    Role = userToModify.Role,
+                    CreatedAt = DateTime.Now
+                });
+        }
+        CloseModal();
+        FilterUsers();
+    }
+
+    private void ShowDeleteModal(User user)
+    {
+        userToDelete = user;
+        showDeleteConfirmation = true;
+    }
+
+    private void CloseDeleteModal()
+    {
+        showDeleteConfirmation = false;
+    }
+
+    private void DeleteUser()
+    {
+        Users.Remove(userToDelete);
+        CloseDeleteModal();
+        FilterUsers();
+    }
+
+    private void CloseModalIfBackdrop(MouseEventArgs args)
+    {
+        if (showModal) showModal = false;
+        else if (showDeleteConfirmation) showDeleteConfirmation = false;
+    }
+
+    public class User
+    {
+        public string Username { get; set; } = "";
+        public string PasswordHash { get; set; } = "";
+        public string FullName { get; set; } = "";
+        public string Role { get; set; } = "";
+        public DateTime CreatedAt { get; set; }
+    }
+}

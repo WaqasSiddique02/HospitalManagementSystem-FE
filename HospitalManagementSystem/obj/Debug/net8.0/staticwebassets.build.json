@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "T6YR0fFgD/d4yOxd/6MM/CpFnWCzToNB7zYqjGZfMw0=",
+  "Hash": "ukfy+k7/Kd0wsEMUG2u+MLR6FTNCpcLs+s2pgl4iwlY=",
   "Source": "HospitalManagementSystem",
   "BasePath": "_content/HospitalManagementSystem",
   "Mode": "Default",
@@ -162,6 +162,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\hospital-crm.jpg"
+    },
+    {
+      "Identity": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\admin.css",
+      "SourceId": "HospitalManagementSystem",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\",
+      "BasePath": "_content/HospitalManagementSystem",
+      "RelativePath": "stylesheets/admin#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "xm6ntnxucy",
+      "Integrity": "WQpdviB+hRpv8MaxKeur5Cg7f+WhQo86FrsPWjO9wxQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\stylesheets\\admin.css"
     },
     {
       "Identity": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\login.css",
@@ -757,6 +778,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-1nyOj7qxMZbryVdyvubne9qworOssAPYRnwxGX6NGjc="
+        }
+      ]
+    },
+    {
+      "Route": "stylesheets/admin.css",
+      "AssetFile": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\admin.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4559"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"WQpdviB+hRpv8MaxKeur5Cg7f+WhQo86FrsPWjO9wxQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 25 Mar 2025 19:59:02 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-WQpdviB+hRpv8MaxKeur5Cg7f+WhQo86FrsPWjO9wxQ="
+        }
+      ]
+    },
+    {
+      "Route": "stylesheets/admin.xm6ntnxucy.css",
+      "AssetFile": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\admin.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4559"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"WQpdviB+hRpv8MaxKeur5Cg7f+WhQo86FrsPWjO9wxQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 25 Mar 2025 19:59:02 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "xm6ntnxucy"
+        },
+        {
+          "Name": "label",
+          "Value": "stylesheets/admin.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-WQpdviB+hRpv8MaxKeur5Cg7f+WhQo86FrsPWjO9wxQ="
         }
       ]
     },
