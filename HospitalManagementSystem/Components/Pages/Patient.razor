@@ -1,0 +1,276 @@
+﻿@page "/patients"
+@rendermode InteractiveServer
+
+<div class="patient-container">
+    <header class="patient-header">
+        <h1>Patient Management</h1>
+        <div class="header-controls">
+            <input type="text" class="search-bar" placeholder="Search patients..." @bind="searchTerm" @bind:event="oninput" @onkeyup="FilterPatients" />
+            <select class="gender-filter" @bind="SelectedGender">
+                <option value="">All Genders</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+            <button class="btn-add" @onclick="ShowInsertModal">
+                <i class="bi bi-plus-circle"></i> Add Patient
+            </button>
+        </div>
+    </header>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Patient ID</th>
+                    <th>Full Name</th>
+                    <th>Date of Birth</th>
+                    <th>Gender</th>
+                    <th>Contact Number</th>
+                    <th class="actions">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var patientRecord in FilteredPatients)
+                {
+                        <tr>
+                            <td>@patientRecord.PatientID</td>
+                            <td>@patientRecord.FullName</td>
+                            <td>@patientRecord.DOB.ToString("yyyy-MM-dd")</td>
+                            <td>@patientRecord.Gender</td>
+                            <td>@patientRecord.ContactNumber</td>
+                            <td class="actions">
+                                <button class="btn-edit" @onclick="() => ShowEditModal(patientRecord)">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button class="btn-delete" @onclick="() => ShowDeleteModal(patientRecord)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (showModal)
+    {
+            <div class="modal-overlay" @onclick="CloseModalIfBackdrop">
+                <div class="modal-content" @onclick:stopPropagation>
+                    <div class="modal-header">
+                        <h5>@(isEditMode ? "Edit Patient" : "Add Patient")</h5>
+                        <button class="btn-close" @onclick="CloseModal">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" @bind="patientRecord.FullName" @bind:event="oninput" />
+                        </div>
+                        <div class="form-group">
+                            <label>Date of Birth</label>
+                            <input type="date" @bind="patientRecord.DOB" @bind:event="oninput" />
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select @bind="patientRecord.Gender">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Contact Number</label>
+                            <input type="tel" @bind="patientRecord.ContactNumber" @bind:event="oninput" />
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" @bind="patientRecord.Address" @bind:event="oninput" />
+                        </div>
+                        <div class="form-group">
+                            <label>Medical History</label>
+                            <textarea @bind="patientRecord.MedicalHistory" @bind:event="oninput"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn-cancel" @onclick="CloseModal">Cancel</button>
+                        <button class="btn-save" @onclick="SavePatient">@(isEditMode ? "Update" : "Save")</button>
+                    </div>
+                </div>
+            </div>
+    }
+
+    @if (showDeleteConfirmation)
+    {
+            <div class="modal-overlay" @onclick="CloseModalIfBackdrop">
+                <div class="modal-content" @onclick:stopPropagation>
+                    <div class="modal-header">
+                        <h5>Confirm Delete</h5>
+                        <button class="btn-close" @onclick="CloseDeleteModal">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete patient: <strong>@patientToDelete.FullName</strong>?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn-cancel" @onclick="CloseDeleteModal">Cancel</button>
+                        <button class="btn-delete" @onclick="DeletePatient">Delete</button>
+                    </div>
+                </div>
+            </div>
+    }
+</div>
+
+@code {
+    private List<PatientRecord> Patients = new();
+    private List<PatientRecord> FilteredPatients = new();
+    private bool showModal = false;
+    private bool isEditMode = false;
+    private PatientRecord patientRecord = new();
+    private bool showDeleteConfirmation = false;
+    private PatientRecord patientToDelete = new();
+    private string searchTerm = "";
+
+    private string _selectedGender = "";
+    private string SelectedGender
+    {
+        get => _selectedGender;
+        set
+        {
+            _selectedGender = value;
+            FilterPatients();
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadPatients();
+        FilteredPatients = Patients;
+    }
+
+    private async Task LoadPatients()
+    {
+        // In a real application, this would come from a database
+        Patients = new List<PatientRecord>
+        {
+            new() {
+                PatientID = 1,
+                FullName = "John Doe",
+                DOB = DateTime.Now.AddYears(-35),
+                Gender = "Male",
+                ContactNumber = "123-456-7890",
+                Address = "123 Main St",
+                MedicalHistory = "None",
+                CreatedAt = DateTime.Now.AddDays(-1)
+            },
+            new() {
+                PatientID = 2,
+                FullName = "Jane Smith",
+                DOB = DateTime.Now.AddYears(-28),
+                Gender = "Female",
+                ContactNumber = "987-654-3210",
+                Address = "456 Elm St",
+                MedicalHistory = "Allergies",
+                CreatedAt = DateTime.Now.AddDays(-2)
+            }
+        };
+    }
+
+    private void FilterPatients()
+    {
+        FilteredPatients = Patients.Where(p =>
+            (string.IsNullOrEmpty(searchTerm) ||
+             p.FullName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+             p.PatientID.ToString().Contains(searchTerm)) &&
+            (string.IsNullOrEmpty(SelectedGender) || p.Gender == SelectedGender)
+        ).ToList();
+    }
+
+    private void ShowInsertModal()
+    {
+        patientRecord = new PatientRecord { DOB = DateTime.Now };
+        isEditMode = false;
+        showModal = true;
+    }
+
+    private void ShowEditModal(PatientRecord patient)
+    {
+        patientRecord = new PatientRecord
+            {
+                PatientID = patient.PatientID,
+                FullName = patient.FullName,
+                DOB = patient.DOB,
+                Gender = patient.Gender,
+                ContactNumber = patient.ContactNumber,
+                Address = patient.Address,
+                MedicalHistory = patient.MedicalHistory,
+                CreatedAt = patient.CreatedAt
+            };
+        isEditMode = true;
+        showModal = true;
+    }
+
+    private void CloseModal()
+    {
+        showModal = false;
+    }
+
+    private void SavePatient()
+    {
+        if (isEditMode)
+        {
+            var existingPatient = Patients.FirstOrDefault(p => p.PatientID == patientRecord.PatientID);
+            if (existingPatient != null)
+            {
+                existingPatient.FullName = patientRecord.FullName;
+                existingPatient.DOB = patientRecord.DOB;
+                existingPatient.Gender = patientRecord.Gender;
+                existingPatient.ContactNumber = patientRecord.ContactNumber;
+                existingPatient.Address = patientRecord.Address;
+                existingPatient.MedicalHistory = patientRecord.MedicalHistory;
+            }
+        }
+        else
+        {
+            patientRecord.PatientID = Patients.Count > 0 ? Patients.Max(p => p.PatientID) + 1 : 1;
+            patientRecord.CreatedAt = DateTime.Now;
+            Patients.Add(patientRecord);
+        }
+        CloseModal();
+        FilterPatients();
+    }
+
+    private void ShowDeleteModal(PatientRecord patient)
+    {
+        patientToDelete = patient;
+        showDeleteConfirmation = true;
+    }
+
+    private void CloseDeleteModal()
+    {
+        showDeleteConfirmation = false;
+    }
+
+    private void DeletePatient()
+    {
+        Patients.Remove(patientToDelete);
+        CloseDeleteModal();
+        FilterPatients();
+    }
+
+    private void CloseModalIfBackdrop(MouseEventArgs args)
+    {
+        if (showModal) showModal = false;
+        else if (showDeleteConfirmation) showDeleteConfirmation = false;
+    }
+
+    public class PatientRecord
+    {
+        public int PatientID { get; set; }
+        public string FullName { get; set; } = "";
+        public DateTime DOB { get; set; }
+        public string Gender { get; set; } = "";
+        public string ContactNumber { get; set; } = "";
+        public string Address { get; set; } = "";
+        public string MedicalHistory { get; set; } = "";
+        public DateTime CreatedAt { get; set; }
+    }
+}

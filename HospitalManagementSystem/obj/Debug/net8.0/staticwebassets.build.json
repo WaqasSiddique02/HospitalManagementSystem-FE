@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ukfy+k7/Kd0wsEMUG2u+MLR6FTNCpcLs+s2pgl4iwlY=",
+  "Hash": "lxrXmYnwHpySRJv7uNKFQaP9G6ES/riwqNjlyX2lCtE=",
   "Source": "HospitalManagementSystem",
   "BasePath": "_content/HospitalManagementSystem",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "HospitalManagementSystem\\wwwroot",
       "Source": "HospitalManagementSystem",
-      "ContentRoot": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\",
+      "ContentRoot": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\",
       "BasePath": "_content/HospitalManagementSystem",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\bundle\\HospitalManagementSystem.styles.css",
+      "Identity": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\bundle\\HospitalManagementSystem.styles.css",
       "SourceId": "HospitalManagementSystem",
       "SourceType": "Computed",
-      "ContentRoot": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/HospitalManagementSystem",
       "RelativePath": "HospitalManagementSystem#[.{fingerprint}]?.styles.css",
       "AssetKind": "All",
@@ -35,13 +35,13 @@
       "Integrity": "knQ+JKUnLRTddTgRqhJDRosWUwG8dleuqG8YVgZ+ZDc=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\bundle\\HospitalManagementSystem.styles.css"
+      "OriginalItemSpec": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\bundle\\HospitalManagementSystem.styles.css"
     },
     {
-      "Identity": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\HospitalManagementSystem.bundle.scp.css",
+      "Identity": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\HospitalManagementSystem.bundle.scp.css",
       "SourceId": "HospitalManagementSystem",
       "SourceType": "Computed",
-      "ContentRoot": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/HospitalManagementSystem",
       "RelativePath": "HospitalManagementSystem#[.{fingerprint}]!.bundle.scp.css",
       "AssetKind": "All",
@@ -56,13 +56,13 @@
       "Integrity": "knQ+JKUnLRTddTgRqhJDRosWUwG8dleuqG8YVgZ+ZDc=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\HospitalManagementSystem.bundle.scp.css"
+      "OriginalItemSpec": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\HospitalManagementSystem.bundle.scp.css"
     },
     {
-      "Identity": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\app.css",
+      "Identity": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\app.css",
       "SourceId": "HospitalManagementSystem",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\",
+      "ContentRoot": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\",
       "BasePath": "_content/HospitalManagementSystem",
       "RelativePath": "app#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -80,10 +80,10 @@
       "OriginalItemSpec": "wwwroot\\app.css"
     },
     {
-      "Identity": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Identity": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\bootstrap\\bootstrap.min.css",
       "SourceId": "HospitalManagementSystem",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\",
+      "ContentRoot": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\",
       "BasePath": "_content/HospitalManagementSystem",
       "RelativePath": "bootstrap/bootstrap.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -101,10 +101,10 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "HospitalManagementSystem",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\",
+      "ContentRoot": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\",
       "BasePath": "_content/HospitalManagementSystem",
       "RelativePath": "bootstrap/bootstrap.min.css#[.{fingerprint}]?.map",
       "AssetKind": "All",
@@ -122,10 +122,10 @@
       "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\favicon.png",
+      "Identity": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\favicon.png",
       "SourceId": "HospitalManagementSystem",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\",
+      "ContentRoot": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\",
       "BasePath": "_content/HospitalManagementSystem",
       "RelativePath": "favicon#[.{fingerprint}]?.png",
       "AssetKind": "All",
@@ -143,10 +143,10 @@
       "OriginalItemSpec": "wwwroot\\favicon.png"
     },
     {
-      "Identity": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\images\\hospital-crm.jpg",
+      "Identity": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\images\\hospital-crm.jpg",
       "SourceId": "HospitalManagementSystem",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\",
+      "ContentRoot": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\",
       "BasePath": "_content/HospitalManagementSystem",
       "RelativePath": "images/hospital-crm#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
@@ -164,10 +164,10 @@
       "OriginalItemSpec": "wwwroot\\images\\hospital-crm.jpg"
     },
     {
-      "Identity": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\admin.css",
+      "Identity": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\admin.css",
       "SourceId": "HospitalManagementSystem",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\",
+      "ContentRoot": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\",
       "BasePath": "_content/HospitalManagementSystem",
       "RelativePath": "stylesheets/admin#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -178,17 +178,17 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "xm6ntnxucy",
-      "Integrity": "WQpdviB+hRpv8MaxKeur5Cg7f+WhQo86FrsPWjO9wxQ=",
+      "Fingerprint": "jnryxbybhq",
+      "Integrity": "gZI+xQE0HaDoKBqaTWl4SVb92/mjtbLOh77w1bdohfM=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\stylesheets\\admin.css"
     },
     {
-      "Identity": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\login.css",
+      "Identity": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\login.css",
       "SourceId": "HospitalManagementSystem",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\",
+      "ContentRoot": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\",
       "BasePath": "_content/HospitalManagementSystem",
       "RelativePath": "stylesheets/login#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -204,12 +204,33 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\stylesheets\\login.css"
+    },
+    {
+      "Identity": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\patients.css",
+      "SourceId": "HospitalManagementSystem",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\",
+      "BasePath": "_content/HospitalManagementSystem",
+      "RelativePath": "stylesheets/patients#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "g64tv1080h",
+      "Integrity": "aN2f+s2tBgwOEAQ/EarnZM02V0SK0uW6PRaMJxkn4RU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\stylesheets\\patients.css"
     }
   ],
   "Endpoints": [
     {
       "Route": "app.css",
-      "AssetFile": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\app.css",
+      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\app.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -230,7 +251,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 25 Mar 2025 18:28:32 GMT"
+          "Value": "Tue, 25 Mar 2025 20:04:25 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -246,7 +267,7 @@
     },
     {
       "Route": "app.da95v2qkru.css",
-      "AssetFile": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\app.css",
+      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\app.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -267,7 +288,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 25 Mar 2025 18:28:32 GMT"
+          "Value": "Tue, 25 Mar 2025 20:04:25 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -291,7 +312,7 @@
     },
     {
       "Route": "bootstrap/bootstrap.min.6gzpyzhau4.css",
-      "AssetFile": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\bootstrap\\bootstrap.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -312,7 +333,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 25 Mar 2025 18:28:32 GMT"
+          "Value": "Tue, 25 Mar 2025 20:04:25 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -336,7 +357,7 @@
     },
     {
       "Route": "bootstrap/bootstrap.min.css",
-      "AssetFile": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\bootstrap\\bootstrap.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -357,7 +378,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 25 Mar 2025 18:28:32 GMT"
+          "Value": "Tue, 25 Mar 2025 20:04:25 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -373,7 +394,7 @@
     },
     {
       "Route": "bootstrap/bootstrap.min.css.8inm30yfxf.map",
-      "AssetFile": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -394,7 +415,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 25 Mar 2025 18:28:32 GMT"
+          "Value": "Tue, 25 Mar 2025 20:04:25 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -418,7 +439,7 @@
     },
     {
       "Route": "bootstrap/bootstrap.min.css.map",
-      "AssetFile": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -439,7 +460,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 25 Mar 2025 18:28:32 GMT"
+          "Value": "Tue, 25 Mar 2025 20:04:25 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -455,7 +476,7 @@
     },
     {
       "Route": "favicon.ifv42okdf2.png",
-      "AssetFile": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\favicon.png",
+      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\favicon.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -476,7 +497,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 25 Mar 2025 18:28:32 GMT"
+          "Value": "Tue, 25 Mar 2025 20:04:25 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -500,7 +521,7 @@
     },
     {
       "Route": "favicon.png",
-      "AssetFile": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\favicon.png",
+      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\favicon.png",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -521,7 +542,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 25 Mar 2025 18:28:32 GMT"
+          "Value": "Tue, 25 Mar 2025 20:04:25 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -537,7 +558,7 @@
     },
     {
       "Route": "HospitalManagementSystem.6y2uhso0pz.bundle.scp.css",
-      "AssetFile": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\HospitalManagementSystem.bundle.scp.css",
+      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\HospitalManagementSystem.bundle.scp.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -558,7 +579,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 25 Mar 2025 18:28:32 GMT"
+          "Value": "Tue, 25 Mar 2025 20:04:25 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -582,7 +603,7 @@
     },
     {
       "Route": "HospitalManagementSystem.6y2uhso0pz.styles.css",
-      "AssetFile": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\bundle\\HospitalManagementSystem.styles.css",
+      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\bundle\\HospitalManagementSystem.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -603,7 +624,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 25 Mar 2025 18:28:32 GMT"
+          "Value": "Tue, 25 Mar 2025 20:04:25 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -627,7 +648,7 @@
     },
     {
       "Route": "HospitalManagementSystem.bundle.scp.css",
-      "AssetFile": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\HospitalManagementSystem.bundle.scp.css",
+      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\HospitalManagementSystem.bundle.scp.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -648,7 +669,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 25 Mar 2025 18:28:32 GMT"
+          "Value": "Tue, 25 Mar 2025 20:04:25 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -664,7 +685,7 @@
     },
     {
       "Route": "HospitalManagementSystem.styles.css",
-      "AssetFile": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\bundle\\HospitalManagementSystem.styles.css",
+      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\obj\\Debug\\net8.0\\scopedcss\\bundle\\HospitalManagementSystem.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -685,7 +706,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 25 Mar 2025 18:28:32 GMT"
+          "Value": "Tue, 25 Mar 2025 20:04:25 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -701,7 +722,7 @@
     },
     {
       "Route": "images/hospital-crm.6hwr2dtlo2.jpg",
-      "AssetFile": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\images\\hospital-crm.jpg",
+      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\images\\hospital-crm.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -722,7 +743,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 25 Mar 2025 18:28:32 GMT"
+          "Value": "Tue, 25 Mar 2025 20:04:25 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -746,7 +767,7 @@
     },
     {
       "Route": "images/hospital-crm.jpg",
-      "AssetFile": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\images\\hospital-crm.jpg",
+      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\images\\hospital-crm.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -767,7 +788,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 25 Mar 2025 18:28:32 GMT"
+          "Value": "Tue, 25 Mar 2025 20:04:25 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -783,7 +804,7 @@
     },
     {
       "Route": "stylesheets/admin.css",
-      "AssetFile": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\admin.css",
+      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\admin.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -792,7 +813,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "4559"
+          "Value": "738"
         },
         {
           "Name": "Content-Type",
@@ -800,11 +821,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"WQpdviB+hRpv8MaxKeur5Cg7f+WhQo86FrsPWjO9wxQ=\""
+          "Value": "\"gZI+xQE0HaDoKBqaTWl4SVb92/mjtbLOh77w1bdohfM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 25 Mar 2025 19:59:02 GMT"
+          "Value": "Wed, 26 Mar 2025 17:59:56 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -814,13 +835,13 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-WQpdviB+hRpv8MaxKeur5Cg7f+WhQo86FrsPWjO9wxQ="
+          "Value": "sha256-gZI+xQE0HaDoKBqaTWl4SVb92/mjtbLOh77w1bdohfM="
         }
       ]
     },
     {
-      "Route": "stylesheets/admin.xm6ntnxucy.css",
-      "AssetFile": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\admin.css",
+      "Route": "stylesheets/admin.jnryxbybhq.css",
+      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\admin.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -829,7 +850,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "4559"
+          "Value": "738"
         },
         {
           "Name": "Content-Type",
@@ -837,11 +858,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"WQpdviB+hRpv8MaxKeur5Cg7f+WhQo86FrsPWjO9wxQ=\""
+          "Value": "\"gZI+xQE0HaDoKBqaTWl4SVb92/mjtbLOh77w1bdohfM=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 25 Mar 2025 19:59:02 GMT"
+          "Value": "Wed, 26 Mar 2025 17:59:56 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -851,7 +872,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "xm6ntnxucy"
+          "Value": "jnryxbybhq"
         },
         {
           "Name": "label",
@@ -859,13 +880,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-WQpdviB+hRpv8MaxKeur5Cg7f+WhQo86FrsPWjO9wxQ="
+          "Value": "sha256-gZI+xQE0HaDoKBqaTWl4SVb92/mjtbLOh77w1bdohfM="
         }
       ]
     },
     {
       "Route": "stylesheets/login.css",
-      "AssetFile": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\login.css",
+      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\login.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -886,7 +907,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 25 Mar 2025 18:28:32 GMT"
+          "Value": "Tue, 25 Mar 2025 20:04:25 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -902,7 +923,7 @@
     },
     {
       "Route": "stylesheets/login.qfoepkpi9x.css",
-      "AssetFile": "D:\\WORK\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\login.css",
+      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\login.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -923,7 +944,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Tue, 25 Mar 2025 18:28:32 GMT"
+          "Value": "Tue, 25 Mar 2025 20:04:25 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -942,6 +963,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-NgyGc1REnzIQgvngqn5AVTj+H9xYQkSPAu8mdDUUfOA="
+        }
+      ]
+    },
+    {
+      "Route": "stylesheets/patients.css",
+      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\patients.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5010"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"aN2f+s2tBgwOEAQ/EarnZM02V0SK0uW6PRaMJxkn4RU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Mar 2025 17:54:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-aN2f+s2tBgwOEAQ/EarnZM02V0SK0uW6PRaMJxkn4RU="
+        }
+      ]
+    },
+    {
+      "Route": "stylesheets/patients.g64tv1080h.css",
+      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\patients.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5010"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"aN2f+s2tBgwOEAQ/EarnZM02V0SK0uW6PRaMJxkn4RU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Mar 2025 17:54:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "g64tv1080h"
+        },
+        {
+          "Name": "label",
+          "Value": "stylesheets/patients.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-aN2f+s2tBgwOEAQ/EarnZM02V0SK0uW6PRaMJxkn4RU="
         }
       ]
     }
