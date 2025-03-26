@@ -32,6 +32,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblBhZ2UucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Learning/Projects/Hospital Management System C\#/HospitalManagementSystem-FE/HospitalManagementSystem/Components/Pages/Doctor.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xEb2N0b3IucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Learning/Projects/Hospital Management System C\#/HospitalManagementSystem-FE/HospitalManagementSystem/Components/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIb21lLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 

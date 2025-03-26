@@ -29,6 +29,10 @@
       "PackagePath": "staticwebassets\\stylesheets\\admin.css"
     },
     {
+      "Id": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\doctor.css",
+      "PackagePath": "staticwebassets\\stylesheets\\doctor.css"
+    },
+    {
       "Id": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\login.css",
       "PackagePath": "staticwebassets\\stylesheets\\login.css"
     },

@@ -1,0 +1,269 @@
+﻿@page "/doctor"
+@rendermode InteractiveServer
+
+<div class="medical-dashboard-container">
+    <header class="medical-dashboard-header">
+        <h1>Doctor Dashboard</h1>
+    </header>
+
+    <div class="medical-patient-records-section">
+        <div class="medical-header-controls">
+            <input type="text" class="medical-search-bar" placeholder="Search patients by ID or Name"
+                   @bind="patientSearchTerm" @bind:event="oninput" @onkeyup="FilterPatients" />
+        </div>
+
+        <div class="medical-table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Patient ID</th>
+                        <th>Full Name</th>
+                        <th>Date of Birth</th>
+                        <th>Gender</th>
+                        <th>Contact Number</th>
+                        <th class="medical-actions">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var patient in FilteredPatients)
+                    {
+                            <tr>
+                                <td>@patient.PatientID</td>
+                                <td>@patient.FullName</td>
+                                <td>@patient.DOB.ToString("yyyy-MM-dd")</td>
+                                <td>@patient.Gender</td>
+                                <td>@patient.ContactNumber</td>
+                                <td class="medical-actions">
+                                    <button class="medical-btn-view" @onclick="() => ShowMedicalHistory(patient)">
+                                        <i class="bi bi-eye"></i> View History
+                                    </button>
+                                    <button class="medical-btn-edit" @onclick="() => EditPatient(patient)">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </button>
+                                </td>
+                            </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    @if (showEditModal)
+    {
+            <div class="medical-modal-overlay" @onclick="CloseEditModal">
+                <div class="medical-modal-content medical-edit-patient-modal" @onclick:stopPropagation>
+                    <div class="medical-modal-header">
+                        <h5>Edit Patient - @selectedPatient.FullName</h5>
+                        <button class="medical-btn-close" @onclick="CloseEditModal">×</button>
+                    </div>
+                    <div class="medical-modal-body">
+                        <div class="medical-patient-edit-form">
+                            <div class="medical-form-section">
+                                <h6>Prescribe Medicine</h6>
+                                <div class="medical-form-group">
+                                    <label>Medication</label>
+                                    <select @bind="selectedMedicationId">
+                                        <option value="0">Select Medication</option>
+                                    @foreach (var medication in Medications)
+                                    {
+                                                <option value="@medication.MedicationID">@medication.MedicationName</option>
+                                    }
+                                    </select>
+                                </div>
+                                <div class="medical-form-group">
+                                    <label>Dosage</label>
+                                    <input type="text" @bind="prescriptionDosage" placeholder="e.g., 2 tablets daily" />
+                                </div>
+                                <div class="medical-form-group">
+                                    <label>Special Instructions</label>
+                                    <textarea @bind="prescriptionInstructions" placeholder="Additional instructions"></textarea>
+                                </div>
+                                <button class="medical-btn-save" @onclick="SavePrescription">Add Prescription</button>
+                            </div>
+
+                            <div class="medical-form-section">
+                                <h6>Update Patient Progress</h6>
+                                <div class="medical-form-group">
+                                    <label>Progress Notes</label>
+                                    <textarea @bind="progressNotes" placeholder="Describe patient's current condition"></textarea>
+                                </div>
+                                <div class="medical-form-group">
+                                    <label>Next Follow-up Date</label>
+                                    <input type="date" @bind="nextFollowUpDate" />
+                                </div>
+                                <button class="medical-btn-save" @onclick="UpdatePatientProgress">Save Progress</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    }
+
+    @if (showMedicalHistoryModal)
+    {
+            <div class="medical-modal-overlay" @onclick="CloseMedicalHistoryModal">
+                <div class="medical-modal-content medical-medical-history" @onclick:stopPropagation>
+                    <div class="medical-modal-header">
+                        <h5>Medical History - @selectedPatient.FullName</h5>
+                        <button class="medical-btn-close" @onclick="CloseMedicalHistoryModal">×</button>
+                    </div>
+                    <div class="medical-modal-body">
+                        <div class="medical-details">
+                            <p><strong>Patient ID:</strong> @selectedPatient.PatientID</p>
+                            <p><strong>Date of Birth:</strong> @selectedPatient.DOB.ToString("yyyy-MM-dd")</p>
+                            <p><strong>Gender:</strong> @selectedPatient.Gender</p>
+                            <p><strong>Contact:</strong> @selectedPatient.ContactNumber</p>
+                            <h6>Medical History:</h6>
+                            <p>@selectedPatient.MedicalHistory</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    }
+</div>
+
+@code {
+    private string patientSearchTerm = "";
+    private List<Patient> Patients = new();
+    private List<Patient> FilteredPatients = new();
+    private List<Medication> Medications = new();
+    private bool showMedicalHistoryModal = false;
+    private bool showEditModal = false;
+    private Patient selectedPatient = new();
+
+    // Prescription variables
+    private int selectedMedicationId;
+    private string prescriptionDosage = "";
+    private string prescriptionInstructions = "";
+
+    // Progress variables
+    private string progressNotes = "";
+    private DateTime nextFollowUpDate = DateTime.Now;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadPatients();
+        await LoadMedications();
+        FilteredPatients = Patients;
+    }
+
+    private async Task LoadPatients()
+    {
+        // Mock data - replace with actual database call
+        Patients = new List<Patient>
+        {
+            new Patient
+            {
+                PatientID = 1,
+                FullName = "John Doe",
+                DOB = DateTime.Now.AddYears(-35),
+                Gender = "Male",
+                ContactNumber = "123-456-7890",
+                MedicalHistory = "Hypertension, Diabetes Type 2"
+            },
+            new Patient
+            {
+                PatientID = 2,
+                FullName = "Jane Smith",
+                DOB = DateTime.Now.AddYears(-28),
+                Gender = "Female",
+                ContactNumber = "987-654-3210",
+                MedicalHistory = "Asthma, Seasonal Allergies"
+            }
+        };
+    }
+
+    private async Task LoadMedications()
+    {
+        // Mock data - replace with actual database call
+        Medications = new List<Medication>
+        {
+            new Medication { MedicationID = 1, MedicationName = "Aspirin" },
+            new Medication { MedicationID = 2, MedicationName = "Insulin" }
+        };
+    }
+
+    private void FilterPatients()
+    {
+        FilteredPatients = Patients.Where(p =>
+            string.IsNullOrEmpty(patientSearchTerm) ||
+            p.PatientID.ToString().Contains(patientSearchTerm) ||
+            p.FullName.Contains(patientSearchTerm, StringComparison.OrdinalIgnoreCase)
+        ).ToList();
+    }
+
+    private void ShowMedicalHistory(Patient patient)
+    {
+        selectedPatient = patient;
+        showMedicalHistoryModal = true;
+    }
+
+    private void EditPatient(Patient patient)
+    {
+        selectedPatient = patient;
+        showEditModal = true;
+    }
+
+    private void CloseEditModal()
+    {
+        showEditModal = false;
+        ResetEditFields();
+    }
+
+    private void CloseMedicalHistoryModal()
+    {
+        showMedicalHistoryModal = false;
+    }
+
+    private void ResetEditFields()
+    {
+        selectedMedicationId = 0;
+        prescriptionDosage = "";
+        prescriptionInstructions = "";
+        progressNotes = "";
+        nextFollowUpDate = DateTime.Now;
+    }
+
+    private void SavePrescription()
+    {
+        if (selectedMedicationId == 0)
+        {
+            // TODO: Show error message
+            return;
+        }
+
+        // TODO: Implement actual prescription saving logic
+        Console.WriteLine($"Prescription saved for Patient ID: {selectedPatient.PatientID}, Medication ID: {selectedMedicationId}");
+
+        // Reset prescription fields
+        selectedMedicationId = 0;
+        prescriptionDosage = "";
+        prescriptionInstructions = "";
+    }
+
+    private void UpdatePatientProgress()
+    {
+        // TODO: Implement actual patient progress update logic
+        Console.WriteLine($"Progress updated for Patient ID: {selectedPatient.PatientID}");
+
+        // Reset progress fields
+        progressNotes = "";
+        nextFollowUpDate = DateTime.Now;
+    }
+
+    public class Patient
+    {
+        public int PatientID { get; set; }
+        public string FullName { get; set; } = "";
+        public DateTime DOB { get; set; }
+        public string Gender { get; set; } = "";
+        public string ContactNumber { get; set; } = "";
+        public string MedicalHistory { get; set; } = "";
+    }
+
+    public class Medication
+    {
+        public int MedicationID { get; set; }
+        public string MedicationName { get; set; } = "";
+    }
+}

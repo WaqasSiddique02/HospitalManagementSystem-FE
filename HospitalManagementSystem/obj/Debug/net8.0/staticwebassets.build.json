@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "RyMBwTVZNYhCoFdXV92KOV+ANdwrSE5u6gKnf/jQOVs=",
+  "Hash": "yNXp/jeUmIzd6LHMtUt5hrxW5eqswMnZv9AYhDD8vu0=",
   "Source": "HospitalManagementSystem",
   "BasePath": "_content/HospitalManagementSystem",
   "Mode": "Default",
@@ -183,6 +183,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\stylesheets\\admin.css"
+    },
+    {
+      "Identity": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\doctor.css",
+      "SourceId": "HospitalManagementSystem",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\",
+      "BasePath": "_content/HospitalManagementSystem",
+      "RelativePath": "stylesheets/doctor#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "l65e8e3fve",
+      "Integrity": "Q/4ZR2Mw7KSfpo9+gj2cM/JpCeSy491ZXK98/c+w6yw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\stylesheets\\doctor.css"
     },
     {
       "Identity": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\login.css",
@@ -881,6 +902,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-M2dOnCXqeHaSzxRTidot23Gxyi+VWLKDMIKRPz61eQk="
+        }
+      ]
+    },
+    {
+      "Route": "stylesheets/doctor.css",
+      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\doctor.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5042"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Q/4ZR2Mw7KSfpo9+gj2cM/JpCeSy491ZXK98/c+w6yw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Mar 2025 18:59:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Q/4ZR2Mw7KSfpo9+gj2cM/JpCeSy491ZXK98/c+w6yw="
+        }
+      ]
+    },
+    {
+      "Route": "stylesheets/doctor.l65e8e3fve.css",
+      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\doctor.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5042"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Q/4ZR2Mw7KSfpo9+gj2cM/JpCeSy491ZXK98/c+w6yw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Mar 2025 18:59:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "l65e8e3fve"
+        },
+        {
+          "Name": "label",
+          "Value": "stylesheets/doctor.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Q/4ZR2Mw7KSfpo9+gj2cM/JpCeSy491ZXK98/c+w6yw="
         }
       ]
     },

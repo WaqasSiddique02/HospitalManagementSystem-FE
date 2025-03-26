@@ -577,6 +577,88 @@
       ]
     },
     {
+      "Route": "stylesheets/doctor.css",
+      "AssetFile": "stylesheets/doctor.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5042"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Q/4ZR2Mw7KSfpo9+gj2cM/JpCeSy491ZXK98/c+w6yw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Mar 2025 18:59:53 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Q/4ZR2Mw7KSfpo9+gj2cM/JpCeSy491ZXK98/c+w6yw="
+        }
+      ]
+    },
+    {
+      "Route": "stylesheets/doctor.l65e8e3fve.css",
+      "AssetFile": "stylesheets/doctor.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5042"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Q/4ZR2Mw7KSfpo9+gj2cM/JpCeSy491ZXK98/c+w6yw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 26 Mar 2025 18:59:53 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "l65e8e3fve"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Q/4ZR2Mw7KSfpo9+gj2cM/JpCeSy491ZXK98/c+w6yw="
+        },
+        {
+          "Name": "label",
+          "Value": "stylesheets/doctor.css"
+        }
+      ]
+    },
+    {
       "Route": "stylesheets/login.css",
       "AssetFile": "stylesheets/login.css",
       "Selectors": [],
