@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "lxrXmYnwHpySRJv7uNKFQaP9G6ES/riwqNjlyX2lCtE=",
+  "Hash": "RyMBwTVZNYhCoFdXV92KOV+ANdwrSE5u6gKnf/jQOVs=",
   "Source": "HospitalManagementSystem",
   "BasePath": "_content/HospitalManagementSystem",
   "Mode": "Default",
@@ -178,8 +178,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "jnryxbybhq",
-      "Integrity": "gZI+xQE0HaDoKBqaTWl4SVb92/mjtbLOh77w1bdohfM=",
+      "Fingerprint": "hf2extgd3y",
+      "Integrity": "M2dOnCXqeHaSzxRTidot23Gxyi+VWLKDMIKRPz61eQk=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\stylesheets\\admin.css"
@@ -813,7 +813,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "738"
+          "Value": "997"
         },
         {
           "Name": "Content-Type",
@@ -821,11 +821,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"gZI+xQE0HaDoKBqaTWl4SVb92/mjtbLOh77w1bdohfM=\""
+          "Value": "\"M2dOnCXqeHaSzxRTidot23Gxyi+VWLKDMIKRPz61eQk=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 26 Mar 2025 17:59:56 GMT"
+          "Value": "Wed, 26 Mar 2025 18:19:39 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -835,12 +835,12 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-gZI+xQE0HaDoKBqaTWl4SVb92/mjtbLOh77w1bdohfM="
+          "Value": "sha256-M2dOnCXqeHaSzxRTidot23Gxyi+VWLKDMIKRPz61eQk="
         }
       ]
     },
     {
-      "Route": "stylesheets/admin.jnryxbybhq.css",
+      "Route": "stylesheets/admin.hf2extgd3y.css",
       "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\admin.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -850,7 +850,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "738"
+          "Value": "997"
         },
         {
           "Name": "Content-Type",
@@ -858,11 +858,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"gZI+xQE0HaDoKBqaTWl4SVb92/mjtbLOh77w1bdohfM=\""
+          "Value": "\"M2dOnCXqeHaSzxRTidot23Gxyi+VWLKDMIKRPz61eQk=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Wed, 26 Mar 2025 17:59:56 GMT"
+          "Value": "Wed, 26 Mar 2025 18:19:39 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -872,7 +872,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "jnryxbybhq"
+          "Value": "hf2extgd3y"
         },
         {
           "Name": "label",
@@ -880,7 +880,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-gZI+xQE0HaDoKBqaTWl4SVb92/mjtbLOh77w1bdohfM="
+          "Value": "sha256-M2dOnCXqeHaSzxRTidot23Gxyi+VWLKDMIKRPz61eQk="
         }
       ]
     },

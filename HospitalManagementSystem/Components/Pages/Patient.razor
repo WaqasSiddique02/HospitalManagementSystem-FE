@@ -1,5 +1,6 @@
 ﻿@page "/patients"
 @rendermode InteractiveServer
+@inject NavigationManager Navigation
 
 <div class="patient-container">
     <header class="patient-header">
@@ -15,6 +16,9 @@
             <button class="btn-add" @onclick="ShowInsertModal">
                 <i class="bi bi-plus-circle"></i> Add Patient
             </button>
+               <button class="btn-navigate" @onclick="NavigateToPatients">
+            <i class="bi bi-person-lines-fill"></i> View Admin
+        </button>
         </div>
     </header>
 
@@ -139,6 +143,12 @@
             FilterPatients();
         }
     }
+
+    private void NavigateToPatients()
+    {
+        Navigation.NavigateTo("/admin");
+    }
+
 
     protected override async Task OnInitializedAsync()
     {
