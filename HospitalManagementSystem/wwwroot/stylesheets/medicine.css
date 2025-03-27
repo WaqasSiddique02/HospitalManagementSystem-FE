@@ -1,0 +1,63 @@
+﻿:root {
+    --medicine-primary: #20b2aa; /* Steel blue for medication theme */
+    --medicine-secondary: #778899;
+    --medicine-success: #2ecc71;
+    --medicine-danger: #e74c3c;
+    --medicine-background: #f0f8ff; /* Light Alice Blue */
+    --medicine-text: #333;
+    --medicine-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.medicine-container {
+    min-height: 100vh;
+    background: var(--medicine-background);
+    padding: 20px;
+}
+
+.medicine-header {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: var(--patient-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+    .medicine-header h1 {
+        color: var(--medicine-primary);
+        margin: 0;
+        font-size: 1.8rem;
+        text-align: left;
+    }
+
+.dosage-filter {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    background: white;
+    cursor: pointer;
+    max-width: 20%;
+}
+
+@keyframes medicineFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes medicineSlideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

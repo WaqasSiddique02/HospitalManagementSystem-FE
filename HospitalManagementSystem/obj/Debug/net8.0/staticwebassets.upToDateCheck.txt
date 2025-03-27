@@ -4,6 +4,8 @@ wwwroot\bootstrap\bootstrap.min.css.map
 wwwroot\favicon.png
 wwwroot\images\hospital-crm.jpg
 wwwroot\stylesheets\admin.css
+wwwroot\stylesheets\adminhome.css
 wwwroot\stylesheets\doctor.css
 wwwroot\stylesheets\login.css
+wwwroot\stylesheets\medicine.css
 wwwroot\stylesheets\patients.css

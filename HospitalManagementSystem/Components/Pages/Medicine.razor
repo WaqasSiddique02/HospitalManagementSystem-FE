@@ -1,0 +1,176 @@
+﻿@page "/medicine"
+@rendermode InteractiveServer
+@inject IJSRuntime JsRuntime
+
+<div class="medicine-container">
+    <!-- Header -->
+    <div class="medicine-header">
+        <h1>Medication Management</h1>
+        <div class="header-controls">
+            <input type="text" class="search-bar" placeholder="Search by name..." @bind="searchTerm" @bind:event="oninput" />
+            <select class="dosage-filter" @bind="selectedDosage">
+                <option value="">All Dosages</option>
+                @foreach (var dosage in dosageOptions)
+                {
+                        <option value="@dosage">@dosage</option>
+                }
+            </select>
+            <button class="btn-add" @onclick="OpenAddModal">Add Medication</button>
+        </div>
+    </div>
+
+    <!-- Table (Main Content) -->
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Dosage</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var med in FilteredMedications)
+                {
+                        <tr>
+                            <td>@med.Name</td>
+                            <td>@med.Dosage</td>
+                            <td>@med.Description</td>
+                            <td class="actions">
+                                <button class="btn-edit" @onclick="() => OpenEditModal(med)" title="Edit">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                                <button class="btn-delete" @onclick="() => DeleteMedication(med.MedicationID)" title="Delete">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal for Add/Edit -->
+    @if (showModal)
+    {
+            <div class="modal-overlay" @onclick="CloseModal">
+                <div class="modal-content" @onclick:stopPropagation>
+                    <div class="modal-header">
+                        <h2>@(isEditMode ? "Edit Medication" : "Add Medication")</h2>
+                        <button class="btn-close" @onclick="CloseModal">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" @bind="currentMedication.Name" placeholder="Enter medication name" />
+                        </div>
+                        <div class="form-group">
+                            <label>Dosage</label>
+                            <input type="text" @bind="currentMedication.Dosage" placeholder="Enter dosage (e.g., 10mg)" />
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea @bind="currentMedication.Description" placeholder="Enter description" rows="4"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn-cancel" @onclick="CloseModal">Cancel</button>
+                        <button class="btn-save" @onclick="SaveMedication">Save</button>
+                    </div>
+                </div>
+            </div>
+    }
+</div>
+
+@code {
+    private List<Medication> medications = new();
+    private List<string> dosageOptions = new();
+    private string searchTerm = "";
+    private string selectedDosage = "";
+    private bool showModal = false;
+    private bool isEditMode = false;
+    private Medication currentMedication = new();
+
+    private List<Medication> FilteredMedications => medications
+        .Where(m => string.IsNullOrEmpty(searchTerm) || m.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
+        .Where(m => string.IsNullOrEmpty(selectedDosage) || m.Dosage == selectedDosage)
+        .ToList();
+
+    protected override void OnInitialized()
+    {
+        // Mock data - replace with actual database call
+        medications = new List<Medication>
+        {
+            new Medication { MedicationID = 1, Name = "Aspirin", Dosage = "10mg", Description = "Pain relief" },
+            new Medication { MedicationID = 2, Name = "Ibuprofen", Dosage = "200mg", Description = "Anti-inflammatory" },
+            new Medication { MedicationID = 3, Name = "Paracetamol", Dosage = "500mg", Description = "Fever reducer" }
+        };
+        dosageOptions = medications.Select(m => m.Dosage).Distinct().ToList();
+    }
+
+    private void OpenAddModal()
+    {
+        currentMedication = new Medication();
+        isEditMode = false;
+        showModal = true;
+        StateHasChanged(); // Ensure UI updates
+    }
+
+    private void OpenEditModal(Medication med)
+    {
+        currentMedication = new Medication
+            {
+                MedicationID = med.MedicationID,
+                Name = med.Name,
+                Dosage = med.Dosage,
+                Description = med.Description
+            };
+        isEditMode = true;
+        showModal = true;
+        StateHasChanged(); // Ensure UI updates
+    }
+
+    private void CloseModal()
+    {
+        showModal = false;
+        StateHasChanged(); // Ensure UI updates
+    }
+
+    private void SaveMedication()
+    {
+        if (isEditMode)
+        {
+            var med = medications.FirstOrDefault(m => m.MedicationID == currentMedication.MedicationID);
+            if (med != null)
+            {
+                med.Name = currentMedication.Name;
+                med.Dosage = currentMedication.Dosage;
+                med.Description = currentMedication.Description;
+            }
+        }
+        else
+        {
+            currentMedication.MedicationID = medications.Max(m => m.MedicationID) + 1;
+            medications.Add(currentMedication);
+            dosageOptions = medications.Select(m => m.Dosage).Distinct().ToList();
+        }
+        showModal = false;
+        StateHasChanged(); // Ensure UI updates
+    }
+
+    private void DeleteMedication(int id)
+    {
+        medications.RemoveAll(m => m.MedicationID == id);
+        dosageOptions = medications.Select(m => m.Dosage).Distinct().ToList();
+        StateHasChanged(); // Ensure UI updates
+    }
+
+    public class Medication
+    {
+        public int MedicationID { get; set; }
+        public string Name { get; set; } = "";
+        public string Dosage { get; set; } = "";
+        public string? Description { get; set; }
+    }
+}

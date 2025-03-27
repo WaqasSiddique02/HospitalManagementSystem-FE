@@ -29,12 +29,20 @@
       "PackagePath": "staticwebassets\\stylesheets\\admin.css"
     },
     {
+      "Id": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\adminhome.css",
+      "PackagePath": "staticwebassets\\stylesheets\\adminhome.css"
+    },
+    {
       "Id": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\doctor.css",
       "PackagePath": "staticwebassets\\stylesheets\\doctor.css"
     },
     {
       "Id": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\login.css",
       "PackagePath": "staticwebassets\\stylesheets\\login.css"
+    },
+    {
+      "Id": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\medicine.css",
+      "PackagePath": "staticwebassets\\stylesheets\\medicine.css"
     },
     {
       "Id": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\patients.css",

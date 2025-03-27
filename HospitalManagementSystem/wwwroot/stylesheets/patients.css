@@ -1,9 +1,9 @@
 ﻿:root {
-    --patient-primary: #20b2aa; /* Lighter seafoam green to differentiate from admin blue */
+    --patient-primary: #20b2aa;
     --patient-secondary: #778899;
     --patient-success: #2ecc71;
     --patient-danger: #e74c3c;
-    --patient-background: #f0f8ff; /* Light Alice Blue */
+    --patient-background: #f0f8ff;
     --patient-text: #333;
     --patient-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }

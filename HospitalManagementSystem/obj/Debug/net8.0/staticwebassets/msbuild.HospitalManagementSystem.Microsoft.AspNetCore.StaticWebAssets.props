@@ -126,6 +126,24 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\stylesheets\admin.css'))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\stylesheets\adminhome.css'))">
+      <SourceType>Package</SourceType>
+      <SourceId>HospitalManagementSystem</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/HospitalManagementSystem</BasePath>
+      <RelativePath>stylesheets/adminhome.css</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>v328kz7i86</Fingerprint>
+      <Integrity>VVNbnjvEYh/nW2s5S0sq82BP2D023okW2vkESH+HS4w=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\stylesheets\adminhome.css'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\stylesheets\doctor.css'))">
       <SourceType>Package</SourceType>
       <SourceId>HospitalManagementSystem</SourceId>
@@ -138,8 +156,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>l65e8e3fve</Fingerprint>
-      <Integrity>Q/4ZR2Mw7KSfpo9+gj2cM/JpCeSy491ZXK98/c+w6yw=</Integrity>
+      <Fingerprint>jrjss8v5ch</Fingerprint>
+      <Integrity>8cCOJmmz5ErlGtcbd/AK2jR7HG3FL7MQPdl9+WDeDmA=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\stylesheets\doctor.css'))</OriginalItemSpec>
@@ -162,6 +180,24 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\stylesheets\login.css'))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\stylesheets\medicine.css'))">
+      <SourceType>Package</SourceType>
+      <SourceId>HospitalManagementSystem</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/HospitalManagementSystem</BasePath>
+      <RelativePath>stylesheets/medicine.css</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>a35no8500d</Fingerprint>
+      <Integrity>hgEMvKH77OovWzhbuoTmKioGIslK1G3XYa1RNmsE+aA=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\stylesheets\medicine.css'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\stylesheets\patients.css'))">
       <SourceType>Package</SourceType>
       <SourceId>HospitalManagementSystem</SourceId>
@@ -174,8 +210,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>g64tv1080h</Fingerprint>
-      <Integrity>aN2f+s2tBgwOEAQ/EarnZM02V0SK0uW6PRaMJxkn4RU=</Integrity>
+      <Fingerprint>15zb0d8g62</Fingerprint>
+      <Integrity>W6VC+0vGe3i0NVBRGrwIWfzuW9xyUHKfW2JCP7s4amE=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\stylesheets\patients.css'))</OriginalItemSpec>
