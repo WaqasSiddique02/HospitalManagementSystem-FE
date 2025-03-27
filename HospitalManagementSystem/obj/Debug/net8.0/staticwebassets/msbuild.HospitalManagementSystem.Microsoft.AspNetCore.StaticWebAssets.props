@@ -156,8 +156,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>jrjss8v5ch</Fingerprint>
-      <Integrity>8cCOJmmz5ErlGtcbd/AK2jR7HG3FL7MQPdl9+WDeDmA=</Integrity>
+      <Fingerprint>gjb15xrvsd</Fingerprint>
+      <Integrity>VFa/JH7A8B6wUyGc5a5q+xC6tZKqC8k7tMIWLgTsH1A=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\stylesheets\doctor.css'))</OriginalItemSpec>
@@ -210,8 +210,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>i9y6mtylpw</Fingerprint>
-      <Integrity>9rwBt3wjpwVEQ8MEPK1w8vaMaQ13pv88nz9Mo6L6kNY=</Integrity>
+      <Fingerprint>vv4cgiwn6t</Fingerprint>
+      <Integrity>u/u1ko7cfv5a6fH6QcXAl1J1YT67t3T7LKvXRNb3HrQ=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\stylesheets\nurse.css'))</OriginalItemSpec>

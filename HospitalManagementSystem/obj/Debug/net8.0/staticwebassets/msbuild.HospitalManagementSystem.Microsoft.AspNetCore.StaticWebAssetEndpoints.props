@@ -99,14 +99,14 @@
     <StaticWebAssetEndpoint Include="_content/HospitalManagementSystem/stylesheets/doctor.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\stylesheets\doctor.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-8cCOJmmz5ErlGtcbd/AK2jR7HG3FL7MQPdl9\u002BWDeDmA="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"5042"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00228cCOJmmz5ErlGtcbd/AK2jR7HG3FL7MQPdl9\u002BWDeDmA=\u0022"},{"Name":"Last-Modified","Value":"Thu, 27 Mar 2025 18:32:54 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-VFa/JH7A8B6wUyGc5a5q\u002BxC6tZKqC8k7tMIWLgTsH1A="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"7354"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022VFa/JH7A8B6wUyGc5a5q\u002BxC6tZKqC8k7tMIWLgTsH1A=\u0022"},{"Name":"Last-Modified","Value":"Thu, 27 Mar 2025 20:08:51 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/HospitalManagementSystem/stylesheets/doctor.jrjss8v5ch.css">
+    <StaticWebAssetEndpoint Include="_content/HospitalManagementSystem/stylesheets/doctor.gjb15xrvsd.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\stylesheets\doctor.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"jrjss8v5ch"},{"Name":"integrity","Value":"sha256-8cCOJmmz5ErlGtcbd/AK2jR7HG3FL7MQPdl9\u002BWDeDmA="},{"Name":"label","Value":"_content/HospitalManagementSystem/stylesheets/doctor.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"5042"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00228cCOJmmz5ErlGtcbd/AK2jR7HG3FL7MQPdl9\u002BWDeDmA=\u0022"},{"Name":"Last-Modified","Value":"Thu, 27 Mar 2025 18:32:54 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"gjb15xrvsd"},{"Name":"integrity","Value":"sha256-VFa/JH7A8B6wUyGc5a5q\u002BxC6tZKqC8k7tMIWLgTsH1A="},{"Name":"label","Value":"_content/HospitalManagementSystem/stylesheets/doctor.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"7354"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022VFa/JH7A8B6wUyGc5a5q\u002BxC6tZKqC8k7tMIWLgTsH1A=\u0022"},{"Name":"Last-Modified","Value":"Thu, 27 Mar 2025 20:08:51 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/HospitalManagementSystem/stylesheets/login.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\stylesheets\login.css'))</AssetFile>
@@ -135,14 +135,14 @@
     <StaticWebAssetEndpoint Include="_content/HospitalManagementSystem/stylesheets/nurse.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\stylesheets\nurse.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-9rwBt3wjpwVEQ8MEPK1w8vaMaQ13pv88nz9Mo6L6kNY="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"7097"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00229rwBt3wjpwVEQ8MEPK1w8vaMaQ13pv88nz9Mo6L6kNY=\u0022"},{"Name":"Last-Modified","Value":"Thu, 27 Mar 2025 18:32:54 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-u/u1ko7cfv5a6fH6QcXAl1J1YT67t3T7LKvXRNb3HrQ="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"7186"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022u/u1ko7cfv5a6fH6QcXAl1J1YT67t3T7LKvXRNb3HrQ=\u0022"},{"Name":"Last-Modified","Value":"Thu, 27 Mar 2025 19:58:51 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/HospitalManagementSystem/stylesheets/nurse.i9y6mtylpw.css">
+    <StaticWebAssetEndpoint Include="_content/HospitalManagementSystem/stylesheets/nurse.vv4cgiwn6t.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\stylesheets\nurse.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"i9y6mtylpw"},{"Name":"integrity","Value":"sha256-9rwBt3wjpwVEQ8MEPK1w8vaMaQ13pv88nz9Mo6L6kNY="},{"Name":"label","Value":"_content/HospitalManagementSystem/stylesheets/nurse.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"7097"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00229rwBt3wjpwVEQ8MEPK1w8vaMaQ13pv88nz9Mo6L6kNY=\u0022"},{"Name":"Last-Modified","Value":"Thu, 27 Mar 2025 18:32:54 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"vv4cgiwn6t"},{"Name":"integrity","Value":"sha256-u/u1ko7cfv5a6fH6QcXAl1J1YT67t3T7LKvXRNb3HrQ="},{"Name":"label","Value":"_content/HospitalManagementSystem/stylesheets/nurse.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"7186"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022u/u1ko7cfv5a6fH6QcXAl1J1YT67t3T7LKvXRNb3HrQ=\u0022"},{"Name":"Last-Modified","Value":"Thu, 27 Mar 2025 19:58:51 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/HospitalManagementSystem/stylesheets/patients.15zb0d8g62.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\stylesheets\patients.css'))</AssetFile>
