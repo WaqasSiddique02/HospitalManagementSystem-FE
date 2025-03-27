@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "2i/Q1PtdmwH6uzuTg6PgvDLzH/S3zR/8dcbKLM9XjCo=",
+  "Hash": "Luc9CcrQaXHjnnrqnhd1yyKNuQ9TD644WOI5olll8Ho=",
   "Source": "HospitalManagementSystem",
   "BasePath": "_content/HospitalManagementSystem",
   "Mode": "Default",
@@ -283,8 +283,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "bf6fwrlzpv",
-      "Integrity": "R0pCWdkxsaccuorLD+9/hI8oZNxCKhiRi/SvJU/P/gY=",
+      "Fingerprint": "i9y6mtylpw",
+      "Integrity": "9rwBt3wjpwVEQ8MEPK1w8vaMaQ13pv88nz9Mo6L6kNY=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\stylesheets\\nurse.css"
@@ -1297,51 +1297,6 @@
       ]
     },
     {
-      "Route": "stylesheets/nurse.bf6fwrlzpv.css",
-      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\nurse.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "7398"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"R0pCWdkxsaccuorLD+9/hI8oZNxCKhiRi/SvJU/P/gY=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 27 Mar 2025 16:56:55 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "bf6fwrlzpv"
-        },
-        {
-          "Name": "label",
-          "Value": "stylesheets/nurse.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-R0pCWdkxsaccuorLD+9/hI8oZNxCKhiRi/SvJU/P/gY="
-        }
-      ]
-    },
-    {
       "Route": "stylesheets/nurse.css",
       "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\nurse.css",
       "Selectors": [],
@@ -1352,7 +1307,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "7398"
+          "Value": "7097"
         },
         {
           "Name": "Content-Type",
@@ -1360,11 +1315,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"R0pCWdkxsaccuorLD+9/hI8oZNxCKhiRi/SvJU/P/gY=\""
+          "Value": "\"9rwBt3wjpwVEQ8MEPK1w8vaMaQ13pv88nz9Mo6L6kNY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 27 Mar 2025 16:56:55 GMT"
+          "Value": "Thu, 27 Mar 2025 18:15:01 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1374,7 +1329,52 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-R0pCWdkxsaccuorLD+9/hI8oZNxCKhiRi/SvJU/P/gY="
+          "Value": "sha256-9rwBt3wjpwVEQ8MEPK1w8vaMaQ13pv88nz9Mo6L6kNY="
+        }
+      ]
+    },
+    {
+      "Route": "stylesheets/nurse.i9y6mtylpw.css",
+      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\nurse.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7097"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"9rwBt3wjpwVEQ8MEPK1w8vaMaQ13pv88nz9Mo6L6kNY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Mar 2025 18:15:01 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "i9y6mtylpw"
+        },
+        {
+          "Name": "label",
+          "Value": "stylesheets/nurse.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-9rwBt3wjpwVEQ8MEPK1w8vaMaQ13pv88nz9Mo6L6kNY="
         }
       ]
     },

@@ -1,7 +1,21 @@
 ﻿@page "/doctor"
 @rendermode InteractiveServer
+@inject HttpClient Http
+@inject NavigationManager Navigation
 
 <div class="medical-dashboard-container">
+    @if (isLoading)
+    {
+            <div class="loading-overlay">
+                <div class="spinner"></div>
+            </div>
+    }
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+            <div class="alert alert-danger">@errorMessage</div>
+    }
+
     <header class="medical-dashboard-header">
         <h1>Doctor Dashboard</h1>
     </header>
@@ -66,7 +80,7 @@
                                         <option value="0">Select Medication</option>
                                     @foreach (var medication in Medications)
                                     {
-                                                <option value="@medication.MedicationID">@medication.MedicationName</option>
+                                                <option value="@medication.MedicationID">@medication.Name - @medication.Dosage</option>
                                     }
                                     </select>
                                 </div>
@@ -84,8 +98,12 @@
                             <div class="medical-form-section">
                                 <h6>Update Patient Progress</h6>
                                 <div class="medical-form-group">
-                                    <label>Progress Notes</label>
-                                    <textarea @bind="progressNotes" placeholder="Describe patient's current condition"></textarea>
+                                    <label>Diagnosis</label>
+                                    <textarea @bind="diagnosis" placeholder="Enter diagnosis"></textarea>
+                                </div>
+                                <div class="medical-form-group">
+                                    <label>Treatment Plan</label>
+                                    <textarea @bind="treatmentPlan" placeholder="Describe treatment plan"></textarea>
                                 </div>
                                 <div class="medical-form-group">
                                     <label>Next Follow-up Date</label>
@@ -113,8 +131,47 @@
                             <p><strong>Date of Birth:</strong> @selectedPatient.DOB.ToString("yyyy-MM-dd")</p>
                             <p><strong>Gender:</strong> @selectedPatient.Gender</p>
                             <p><strong>Contact:</strong> @selectedPatient.ContactNumber</p>
-                            <h6>Medical History:</h6>
-                            <p>@selectedPatient.MedicalHistory</p>
+
+                            <h6>Medical Records:</h6>
+                        @if (patientMedicalRecords.Count == 0)
+                        {
+                                    <p>No medical records found</p>
+                        }
+                        else
+                        {
+                                    <div class="medical-records-list">
+                                @foreach (var record in patientMedicalRecords)
+                                {
+                                                <div class="medical-record">
+                                                    <p><strong>Date:</strong> @record.CreatedAt.ToString("yyyy-MM-dd")</p>
+                                                    <p><strong>Diagnosis:</strong> @record.Diagnosis</p>
+                                                    <p><strong>Treatment:</strong> @record.TreatmentPlan</p>
+                                                    <hr />
+                                                </div>
+                                }
+                                    </div>
+                        }
+
+                            <h6>Prescriptions:</h6>
+                        @if (patientPrescriptions.Count == 0)
+                        {
+                                    <p>No prescriptions found</p>
+                        }
+                        else
+                        {
+                                    <div class="prescriptions-list">
+                                @foreach (var prescription in patientPrescriptions)
+                                {
+                                                <div class="prescription">
+                                                    <p><strong>Medication:</strong> @prescription.Medication?.Name</p>
+                                                    <p><strong>Dosage:</strong> @prescription.Dosage</p>
+                                                    <p><strong>Instructions:</strong> @prescription.Instructions</p>
+                                                    <p><strong>Prescribed On:</strong> @prescription.PrescribedAt.ToString("yyyy-MM-dd")</p>
+                                                    <hr />
+                                                </div>
+                                }
+                                    </div>
+                        }
                         </div>
                     </div>
                 </div>
@@ -123,10 +180,23 @@
 </div>
 
 @code {
-    private string patientSearchTerm = "";
+    // API Endpoints
+    private string patientsApiUrl = "/api/Patient";
+    private string medicationsApiUrl = "/api/Medications";
+    private string prescriptionsApiUrl = "/api/Prescription";
+    private string medicalRecordsApiUrl = "/api/MedicalRecords";
+
+    // Data
     private List<Patient> Patients = new();
     private List<Patient> FilteredPatients = new();
     private List<Medication> Medications = new();
+    private List<MedicalRecord> patientMedicalRecords = new();
+    private List<Prescription> patientPrescriptions = new();
+
+    // UI State
+    private bool isLoading = false;
+    private string errorMessage = string.Empty;
+    private string patientSearchTerm = "";
     private bool showMedicalHistoryModal = false;
     private bool showEditModal = false;
     private Patient selectedPatient = new();
@@ -136,51 +206,93 @@
     private string prescriptionDosage = "";
     private string prescriptionInstructions = "";
 
-    // Progress variables
-    private string progressNotes = "";
+    // Medical Record variables
+    private string diagnosis = "";
+    private string treatmentPlan = "";
     private DateTime nextFollowUpDate = DateTime.Now;
 
     protected override async Task OnInitializedAsync()
     {
         await LoadPatients();
         await LoadMedications();
-        FilteredPatients = Patients;
     }
 
     private async Task LoadPatients()
     {
-        // Mock data - replace with actual database call
-        Patients = new List<Patient>
+        isLoading = true;
+        try
         {
-            new Patient
+            var response = await Http.GetAsync(patientsApiUrl);
+            if (response.IsSuccessStatusCode)
             {
-                PatientID = 1,
-                FullName = "John Doe",
-                DOB = DateTime.Now.AddYears(-35),
-                Gender = "Male",
-                ContactNumber = "123-456-7890",
-                MedicalHistory = "Hypertension, Diabetes Type 2"
-            },
-            new Patient
-            {
-                PatientID = 2,
-                FullName = "Jane Smith",
-                DOB = DateTime.Now.AddYears(-28),
-                Gender = "Female",
-                ContactNumber = "987-654-3210",
-                MedicalHistory = "Asthma, Seasonal Allergies"
+                Patients = await response.Content.ReadFromJsonAsync<List<Patient>>() ?? new List<Patient>();
+                FilteredPatients = Patients;
             }
-        };
+            else
+            {
+                errorMessage = "Failed to load patients";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error loading patients: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
     }
 
     private async Task LoadMedications()
     {
-        // Mock data - replace with actual database call
-        Medications = new List<Medication>
+        try
         {
-            new Medication { MedicationID = 1, MedicationName = "Aspirin" },
-            new Medication { MedicationID = 2, MedicationName = "Insulin" }
-        };
+            var response = await Http.GetAsync(medicationsApiUrl);
+            if (response.IsSuccessStatusCode)
+            {
+                Medications = await response.Content.ReadFromJsonAsync<List<Medication>>() ?? new List<Medication>();
+            }
+            else
+            {
+                errorMessage = "Failed to load medications";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error loading medications: {ex.Message}";
+        }
+    }
+
+    private async Task LoadPatientMedicalRecords(int patientId)
+    {
+        try
+        {
+            var response = await Http.GetAsync($"{medicalRecordsApiUrl}/patient/{patientId}");
+            if (response.IsSuccessStatusCode)
+            {
+                patientMedicalRecords = await response.Content.ReadFromJsonAsync<List<MedicalRecord>>() ?? new List<MedicalRecord>();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading medical records: {ex.Message}");
+        }
+    }
+
+    private async Task LoadPatientPrescriptions(int patientId)
+    {
+        try
+        {
+            var response = await Http.GetAsync($"{prescriptionsApiUrl}/patient/{patientId}");
+            if (response.IsSuccessStatusCode)
+            {
+                patientPrescriptions = await response.Content.ReadFromJsonAsync<List<Prescription>>() ?? new List<Prescription>();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading prescriptions: {ex.Message}");
+        }
     }
 
     private void FilterPatients()
@@ -192,9 +304,11 @@
         ).ToList();
     }
 
-    private void ShowMedicalHistory(Patient patient)
+    private async Task ShowMedicalHistory(Patient patient)
     {
         selectedPatient = patient;
+        await LoadPatientMedicalRecords(patient.PatientID);
+        await LoadPatientPrescriptions(patient.PatientID);
         showMedicalHistoryModal = true;
     }
 
@@ -220,50 +334,151 @@
         selectedMedicationId = 0;
         prescriptionDosage = "";
         prescriptionInstructions = "";
-        progressNotes = "";
+        diagnosis = "";
+        treatmentPlan = "";
         nextFollowUpDate = DateTime.Now;
     }
 
-    private void SavePrescription()
+    private async Task SavePrescription()
     {
-        if (selectedMedicationId == 0)
+        if (selectedMedicationId == 0 || string.IsNullOrWhiteSpace(prescriptionDosage))
         {
-            // TODO: Show error message
+            errorMessage = "Please select a medication and enter dosage";
             return;
         }
 
-        // TODO: Implement actual prescription saving logic
-        Console.WriteLine($"Prescription saved for Patient ID: {selectedPatient.PatientID}, Medication ID: {selectedMedicationId}");
+        isLoading = true;
+        try
+        {
+            var prescription = new PrescriptionRequest
+                {
+                    PatientID = selectedPatient.PatientID,
+                    MedicationID = selectedMedicationId,
+                    Dosage = prescriptionDosage,
+                    Instructions = prescriptionInstructions,
+                    PrescribedAt = DateTime.Now
+                };
 
-        // Reset prescription fields
-        selectedMedicationId = 0;
-        prescriptionDosage = "";
-        prescriptionInstructions = "";
+            var response = await Http.PostAsJsonAsync(prescriptionsApiUrl, prescription);
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Reset fields
+                selectedMedicationId = 0;
+                prescriptionDosage = "";
+                prescriptionInstructions = "";
+            }
+            else
+            {
+                errorMessage = "Failed to save prescription";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error saving prescription: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
     }
 
-    private void UpdatePatientProgress()
+    private async Task UpdatePatientProgress()
     {
-        // TODO: Implement actual patient progress update logic
-        Console.WriteLine($"Progress updated for Patient ID: {selectedPatient.PatientID}");
+        if (string.IsNullOrWhiteSpace(diagnosis) || string.IsNullOrWhiteSpace(treatmentPlan))
+        {
+            errorMessage = "Diagnosis and treatment plan are required";
+            return;
+        }
 
-        // Reset progress fields
-        progressNotes = "";
-        nextFollowUpDate = DateTime.Now;
+        isLoading = true;
+        try
+        {
+            var medicalRecord = new MedicalRecordRequest
+                {
+                    PatientID = selectedPatient.PatientID,
+                    Diagnosis = diagnosis,
+                    TreatmentPlan = treatmentPlan,
+                    CreatedAt = DateTime.Now
+                };
+
+            var response = await Http.PostAsJsonAsync(medicalRecordsApiUrl, medicalRecord);
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Reset fields
+                diagnosis = "";
+                treatmentPlan = "";
+                nextFollowUpDate = DateTime.Now;
+            }
+            else
+            {
+                errorMessage = "Failed to save medical record";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error saving medical record: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
     }
 
+    // Request DTOs
+    public class PrescriptionRequest
+    {
+        public int PatientID { get; set; }
+        public int MedicationID { get; set; }
+        public string Dosage { get; set; }
+        public string Instructions { get; set; }
+        public DateTime PrescribedAt { get; set; }
+    }
+
+    public class MedicalRecordRequest
+    {
+        public int PatientID { get; set; }
+        public string Diagnosis { get; set; }
+        public string TreatmentPlan { get; set; }
+        public DateTime CreatedAt { get; set; }
+    }
+
+    // Model classes
     public class Patient
     {
         public int PatientID { get; set; }
-        public string FullName { get; set; } = "";
+        public string FullName { get; set; }
         public DateTime DOB { get; set; }
-        public string Gender { get; set; } = "";
-        public string ContactNumber { get; set; } = "";
-        public string MedicalHistory { get; set; } = "";
+        public string Gender { get; set; }
+        public string ContactNumber { get; set; }
     }
 
     public class Medication
     {
         public int MedicationID { get; set; }
-        public string MedicationName { get; set; } = "";
+        public string Name { get; set; }
+        public string Dosage { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class Prescription
+    {
+        public int PrescriptionID { get; set; }
+        public int PatientID { get; set; }
+        public int MedicationID { get; set; }
+        public Medication Medication { get; set; }
+        public string Dosage { get; set; }
+        public string Instructions { get; set; }
+        public DateTime PrescribedAt { get; set; }
+    }
+
+    public class MedicalRecord
+    {
+        public int RecordID { get; set; }
+        public int PatientID { get; set; }
+        public string Diagnosis { get; set; }
+        public string TreatmentPlan { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

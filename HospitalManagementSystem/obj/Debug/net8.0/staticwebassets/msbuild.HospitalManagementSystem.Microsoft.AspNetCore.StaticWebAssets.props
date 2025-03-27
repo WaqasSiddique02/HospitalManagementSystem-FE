@@ -210,8 +210,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>bf6fwrlzpv</Fingerprint>
-      <Integrity>R0pCWdkxsaccuorLD+9/hI8oZNxCKhiRi/SvJU/P/gY=</Integrity>
+      <Fingerprint>i9y6mtylpw</Fingerprint>
+      <Integrity>9rwBt3wjpwVEQ8MEPK1w8vaMaQ13pv88nz9Mo6L6kNY=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\stylesheets\nurse.css'))</OriginalItemSpec>

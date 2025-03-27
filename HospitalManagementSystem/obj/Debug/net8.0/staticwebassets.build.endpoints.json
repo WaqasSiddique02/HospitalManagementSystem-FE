@@ -905,51 +905,6 @@
       ]
     },
     {
-      "Route": "stylesheets/nurse.bf6fwrlzpv.css",
-      "AssetFile": "stylesheets/nurse.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "7398"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"R0pCWdkxsaccuorLD+9/hI8oZNxCKhiRi/SvJU/P/gY=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 27 Mar 2025 16:56:55 GMT"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "bf6fwrlzpv"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-R0pCWdkxsaccuorLD+9/hI8oZNxCKhiRi/SvJU/P/gY="
-        },
-        {
-          "Name": "label",
-          "Value": "stylesheets/nurse.css"
-        }
-      ]
-    },
-    {
       "Route": "stylesheets/nurse.css",
       "AssetFile": "stylesheets/nurse.css",
       "Selectors": [],
@@ -964,7 +919,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "7398"
+          "Value": "7097"
         },
         {
           "Name": "Content-Type",
@@ -972,17 +927,62 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"R0pCWdkxsaccuorLD+9/hI8oZNxCKhiRi/SvJU/P/gY=\""
+          "Value": "\"9rwBt3wjpwVEQ8MEPK1w8vaMaQ13pv88nz9Mo6L6kNY=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 27 Mar 2025 16:56:55 GMT"
+          "Value": "Thu, 27 Mar 2025 18:15:01 GMT"
         }
       ],
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-R0pCWdkxsaccuorLD+9/hI8oZNxCKhiRi/SvJU/P/gY="
+          "Value": "sha256-9rwBt3wjpwVEQ8MEPK1w8vaMaQ13pv88nz9Mo6L6kNY="
+        }
+      ]
+    },
+    {
+      "Route": "stylesheets/nurse.i9y6mtylpw.css",
+      "AssetFile": "stylesheets/nurse.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7097"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"9rwBt3wjpwVEQ8MEPK1w8vaMaQ13pv88nz9Mo6L6kNY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Mar 2025 18:15:01 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "i9y6mtylpw"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-9rwBt3wjpwVEQ8MEPK1w8vaMaQ13pv88nz9Mo6L6kNY="
+        },
+        {
+          "Name": "label",
+          "Value": "stylesheets/nurse.css"
         }
       ]
     },

@@ -1,13 +1,28 @@
 ﻿@page "/medicine"
 @rendermode InteractiveServer
+@inject HttpClient Http
 @inject IJSRuntime JsRuntime
+@inject NavigationManager Navigation
 
 <div class="medicine-container">
+    @if (isLoading)
+    {
+            <div class="loading-overlay">
+                <div class="spinner"></div>
+            </div>
+    }
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+            <div class="alert alert-danger">@errorMessage</div>
+    }
+
     <!-- Header -->
     <div class="medicine-header">
         <h1>Medication Management</h1>
         <div class="header-controls">
-            <input type="text" class="search-bar" placeholder="Search by name..." @bind="searchTerm" @bind:event="oninput" />
+            <input type="text" class="search-bar" placeholder="Search by name..." 
+                   @bind="searchTerm" @bind:event="oninput" />
             <select class="dosage-filter" @bind="selectedDosage">
                 <option value="">All Dosages</option>
                 @foreach (var dosage in dosageOptions)
@@ -36,12 +51,12 @@
                         <tr>
                             <td>@med.Name</td>
                             <td>@med.Dosage</td>
-                            <td>@med.Description</td>
+                            <td>@(med.Description ?? "-")</td>
                             <td class="actions">
                                 <button class="btn-edit" @onclick="() => OpenEditModal(med)" title="Edit">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
-                                <button class="btn-delete" @onclick="() => DeleteMedication(med.MedicationID)" title="Delete">
+                                <button class="btn-delete" @onclick="() => ShowDeleteConfirmation(med)" title="Delete">
                                     <i class="bi bi-trash"></i>
                                 </button>
                             </td>
@@ -51,7 +66,7 @@
         </table>
     </div>
 
-    <!-- Modal for Add/Edit -->
+    <!-- Add/Edit Modal -->
     @if (showModal)
     {
             <div class="modal-overlay" @onclick="CloseModal">
@@ -62,12 +77,20 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label>Name</label>
+                            <label>Name *</label>
                             <input type="text" @bind="currentMedication.Name" placeholder="Enter medication name" />
+                        @if (nameValidationError)
+                        {
+                                    <span class="validation-error">Name is required</span>
+                        }
                         </div>
                         <div class="form-group">
-                            <label>Dosage</label>
+                            <label>Dosage *</label>
                             <input type="text" @bind="currentMedication.Dosage" placeholder="Enter dosage (e.g., 10mg)" />
+                        @if (dosageValidationError)
+                        {
+                                    <span class="validation-error">Dosage is required</span>
+                        }
                         </div>
                         <div class="form-group">
                             <label>Description</label>
@@ -81,32 +104,89 @@
                 </div>
             </div>
     }
+
+    <!-- Delete Confirmation Modal -->
+    @if (showDeleteModal)
+    {
+            <div class="modal-overlay" @onclick="CloseDeleteModal">
+                <div class="modal-content" @onclick:stopPropagation>
+                    <div class="modal-header">
+                        <h2>Confirm Delete</h2>
+                        <button class="btn-close" @onclick="CloseDeleteModal">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete <strong>@medicationToDelete.Name</strong>?</p>
+                        <p class="text-danger">This action cannot be undone.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn-cancel" @onclick="CloseDeleteModal">Cancel</button>
+                        <button class="btn-delete" @onclick="ConfirmDelete">Delete</button>
+                    </div>
+                </div>
+            </div>
+    }
 </div>
 
 @code {
+    // API Configuration
+    private string apiUrl = "/api/Medications";
+
+    // Data
     private List<Medication> medications = new();
     private List<string> dosageOptions = new();
+
+    // UI State
+    private bool isLoading = false;
+    private string errorMessage = string.Empty;
     private string searchTerm = "";
     private string selectedDosage = "";
     private bool showModal = false;
+    private bool showDeleteModal = false;
     private bool isEditMode = false;
+    private bool nameValidationError = false;
+    private bool dosageValidationError = false;
+
+    // Working Objects
     private Medication currentMedication = new();
+    private Medication medicationToDelete = new();
 
     private List<Medication> FilteredMedications => medications
         .Where(m => string.IsNullOrEmpty(searchTerm) || m.Name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
         .Where(m => string.IsNullOrEmpty(selectedDosage) || m.Dosage == selectedDosage)
+        .OrderBy(m => m.Name)
         .ToList();
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        // Mock data - replace with actual database call
-        medications = new List<Medication>
+        await LoadMedications();
+    }
+
+    private async Task LoadMedications()
+    {
+        isLoading = true;
+        errorMessage = string.Empty;
+        try
         {
-            new Medication { MedicationID = 1, Name = "Aspirin", Dosage = "10mg", Description = "Pain relief" },
-            new Medication { MedicationID = 2, Name = "Ibuprofen", Dosage = "200mg", Description = "Anti-inflammatory" },
-            new Medication { MedicationID = 3, Name = "Paracetamol", Dosage = "500mg", Description = "Fever reducer" }
-        };
-        dosageOptions = medications.Select(m => m.Dosage).Distinct().ToList();
+            var response = await Http.GetAsync(apiUrl);
+
+            if (response.IsSuccessStatusCode)
+            {
+                medications = await response.Content.ReadFromJsonAsync<List<Medication>>() ?? new List<Medication>();
+                dosageOptions = medications.Select(m => m.Dosage).Distinct().OrderBy(d => d).ToList();
+            }
+            else
+            {
+                errorMessage = "Failed to load medications. Please try again.";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error loading medications: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
     }
 
     private void OpenAddModal()
@@ -114,7 +194,8 @@
         currentMedication = new Medication();
         isEditMode = false;
         showModal = true;
-        StateHasChanged(); // Ensure UI updates
+        nameValidationError = false;
+        dosageValidationError = false;
     }
 
     private void OpenEditModal(Medication med)
@@ -128,49 +209,113 @@
             };
         isEditMode = true;
         showModal = true;
-        StateHasChanged(); // Ensure UI updates
+        nameValidationError = false;
+        dosageValidationError = false;
     }
 
     private void CloseModal()
     {
         showModal = false;
-        StateHasChanged(); // Ensure UI updates
     }
 
-    private void SaveMedication()
+    private async Task SaveMedication()
     {
-        if (isEditMode)
+        // Validate inputs
+        nameValidationError = string.IsNullOrWhiteSpace(currentMedication.Name);
+        dosageValidationError = string.IsNullOrWhiteSpace(currentMedication.Dosage);
+
+        if (nameValidationError || dosageValidationError)
         {
-            var med = medications.FirstOrDefault(m => m.MedicationID == currentMedication.MedicationID);
-            if (med != null)
+            return;
+        }
+
+        isLoading = true;
+        errorMessage = string.Empty;
+
+        try
+        {
+            HttpResponseMessage response;
+
+            if (isEditMode)
             {
-                med.Name = currentMedication.Name;
-                med.Dosage = currentMedication.Dosage;
-                med.Description = currentMedication.Description;
+                // Update existing medication
+                response = await Http.PutAsJsonAsync($"{apiUrl}/{currentMedication.MedicationID}", currentMedication);
+            }
+            else
+            {
+                // Create new medication
+                response = await Http.PostAsJsonAsync(apiUrl, currentMedication);
+            }
+
+            if (response.IsSuccessStatusCode)
+            {
+                await LoadMedications(); // Refresh the list
+                CloseModal();
+            }
+            else
+            {
+                errorMessage = await response.Content.ReadAsStringAsync();
+                if (string.IsNullOrWhiteSpace(errorMessage))
+                {
+                    errorMessage = "Operation failed. Please try again.";
+                }
             }
         }
-        else
+        catch (Exception ex)
         {
-            currentMedication.MedicationID = medications.Max(m => m.MedicationID) + 1;
-            medications.Add(currentMedication);
-            dosageOptions = medications.Select(m => m.Dosage).Distinct().ToList();
+            errorMessage = $"Error saving medication: {ex.Message}";
         }
-        showModal = false;
-        StateHasChanged(); // Ensure UI updates
+        finally
+        {
+            isLoading = false;
+        }
     }
 
-    private void DeleteMedication(int id)
+    private void ShowDeleteConfirmation(Medication med)
     {
-        medications.RemoveAll(m => m.MedicationID == id);
-        dosageOptions = medications.Select(m => m.Dosage).Distinct().ToList();
-        StateHasChanged(); // Ensure UI updates
+        medicationToDelete = med;
+        showDeleteModal = true;
+    }
+
+    private void CloseDeleteModal()
+    {
+        showDeleteModal = false;
+    }
+
+    private async Task ConfirmDelete()
+    {
+        isLoading = true;
+        errorMessage = string.Empty;
+
+        try
+        {
+            var response = await Http.DeleteAsync($"{apiUrl}/{medicationToDelete.MedicationID}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                await LoadMedications(); // Refresh the list
+            }
+            else
+            {
+                errorMessage = "Failed to delete medication. Please try again.";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error deleting medication: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+            CloseDeleteModal();
+        }
     }
 
     public class Medication
     {
         public int MedicationID { get; set; }
-        public string Name { get; set; } = "";
-        public string Dosage { get; set; } = "";
+        public string Name { get; set; } = string.Empty;
+        public string Dosage { get; set; } = string.Empty;
         public string? Description { get; set; }
     }
 }
