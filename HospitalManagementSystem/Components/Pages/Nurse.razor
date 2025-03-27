@@ -1,9 +1,17 @@
 ﻿@page "/nurse"
 @rendermode InteractiveServer
+@inject HttpClient HttpClient
+@inject ILogger<Nurse> Logger
 
 <div class="nurse-container">
     <header class="nurse-header">
         <h1>Nurse Dashboard</h1>
+        <div class="status-message">
+            @if (!string.IsNullOrEmpty(statusMessage))
+            {
+                <div class="alert @statusMessageClass">@statusMessage</div>
+            }
+        </div>
     </header>
 
     <div class="patient-records-section">
@@ -12,48 +20,67 @@
                    @bind="patientSearchTerm" @bind:event="oninput" @onkeyup="FilterPatients" />
         </div>
 
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Patient ID</th>
-                        <th>Full Name</th>
-                        <th>Date of Birth</th>
-                        <th>Gender</th>
-                        <th>Contact Number</th>
-                        <th class="actions">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var patient in FilteredPatients)
-                    {
+        @if (isLoading)
+        {
+            <div class="loading-spinner">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        }
+        else if (errorMessage != null)
+        {
+            <div class="alert alert-danger">
+                @errorMessage
+                <button class="btn-close" @onclick="ClearError">×</button>
+            </div>
+        }
+        else
+        {
+            <div class="table-container">
+                <table class="table table-striped table-hover">
+                    <thead>
                         <tr>
-                            <td>@patient.PatientID</td>
-                            <td>@patient.FullName</td>
-                            <td>@patient.DOB.ToString("yyyy-MM-dd")</td>
-                            <td>@patient.Gender</td>
-                            <td>@patient.ContactNumber</td>
-                            <td class="actions">
-                                <button class="btn-view" @onclick="() => ShowPatientDetails(patient)">
-                                    <i class="bi bi-eye"></i> View Details
-                                </button>
-                                <button class="btn-edit" @onclick="() => EditPatientVitals(patient)">
-                                    <i class="bi bi-pencil"></i> Edit
-                                </button>
-                            </td>
+                            <th>Patient ID</th>
+                            <th>Full Name</th>
+                            <th>Date of Birth</th>
+                            <th>Gender</th>
+                            <th>Contact Number</th>
+                            <th class="actions">Actions</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                        @foreach (var patient in FilteredPatients)
+                        {
+                            <tr>
+                                <td>@patient.PatientID</td>
+                                <td>@patient.FullName</td>
+                                <td>@patient.DOB.ToString("yyyy-MM-dd")</td>
+                                <td>@patient.Gender</td>
+                                <td>@patient.ContactNumber</td>
+                                <td class="actions">
+                                    <button class="btn-view" @onclick="() => ShowPatientDetails(patient)">
+                                        <i class="bi bi-eye"></i> View
+                                    </button>
+                                    <button class="btn-edit" @onclick="() => EditPatientVitals(patient)">
+                                        <i class="bi bi-pencil"></i> Vitals
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
     </div>
 
+    <!-- Patient Details Modal -->
     @if (showPatientDetailsModal)
     {
         <div class="modal-overlay" @onclick="ClosePatientDetailsModal">
             <div class="modal-content patient-details" @onclick:stopPropagation>
                 <div class="modal-header">
-                    <h5>Patient Details</h5>
+                    <h5>Patient Details - @selectedPatient.FullName</h5>
                     <button class="btn-close" @onclick="ClosePatientDetailsModal">×</button>
                 </div>
                 <div class="modal-body">
@@ -61,45 +88,116 @@
                         <div class="patient-basic-info">
                             <h6>Personal Information</h6>
                             <p><strong>Name:</strong> @selectedPatient.FullName</p>
-                            <p><strong>Age:</strong> @(DateTime.Now.Year - selectedPatient.DOB.Year)</p>
+                            <p><strong>Age:</strong> @CalculateAge(selectedPatient.DOB)</p>
                             <p><strong>Gender:</strong> @selectedPatient.Gender</p>
-                            <p><strong>Blood Group:</strong> @selectedPatient.BloodGroup</p>
+                            <p><strong>Contact:</strong> @selectedPatient.ContactNumber</p>
+                            <p><strong>Address:</strong> @selectedPatient.Address</p>
                         </div>
 
                         <div class="medical-history">
                             <h6>Medical History</h6>
-                            <p><strong>Diagnoses:</strong> @selectedPatient.Diagnoses</p>
-                            <p><strong>Treatments:</strong> @selectedPatient.Treatments</p>
+                            <p>@(string.IsNullOrEmpty(selectedPatient.MedicalHistory) ? "No medical history recorded" : selectedPatient.MedicalHistory)</p>
                         </div>
                     </div>
+
+                    <div class="vitals-history">
+                        <h6>Vitals History</h6>
+                        @if (patientVitals == null || !patientVitals.Any())
+                        {
+                            <p>No vitals recorded yet</p>
+                        }
+                        else
+                        {
+                            <table class="vitals-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Temperature (°C)</th>
+                                        <th>Blood Pressure</th>
+                                        <th>Heart Rate</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var vital in patientVitals.OrderByDescending(v => v.RecordedAt))
+                                    {
+                                        <tr>
+                                            <td>@vital.RecordedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                                            <td>@vital.Temperature?.ToString("0.0")</td>
+                                            <td>@vital.BloodPressure</td>
+                                            <td>@vital.HeartRate</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" @onclick="ClosePatientDetailsModal">Close</button>
                 </div>
             </div>
         </div>
     }
 
+    <!-- Vitals Recording Modal -->
     @if (showEditVitalsModal)
     {
         <div class="modal-overlay" @onclick="CloseEditVitalsModal">
             <div class="modal-content edit-vitals-modal" @onclick:stopPropagation>
                 <div class="modal-header">
-                    <h5>Record Patient Vitals - @selectedPatient.FullName</h5>
+                    <h5>Record Vitals - @selectedPatient.FullName</h5>
                     <button class="btn-close" @onclick="CloseEditVitalsModal">×</button>
                 </div>
                 <div class="modal-body">
+                    @if (vitalsErrorMessage != null)
+                    {
+                        <div class="alert alert-danger">
+                            @vitalsErrorMessage
+                            <button class="btn-close" @onclick="ClearVitalsError">×</button>
+                        </div>
+                    }
                     <div class="vitals-form">
                         <div class="form-group">
                             <label>Temperature (°C)</label>
-                            <input type="number" step="0.1" @bind="currentVital.Temperature" placeholder="Enter temperature" />
+                            <input type="number" step="0.1"
+                                   @bind="currentVital.Temperature"
+                                   class="@(vitalsValidationErrors.ContainsKey(nameof(currentVital.Temperature)) ? "is-invalid" : "")" />
+                            @if (vitalsValidationErrors.ContainsKey(nameof(currentVital.Temperature)))
+                            {
+                                <div class="invalid-feedback">
+                                    @vitalsValidationErrors[nameof(currentVital.Temperature)]
+                                </div>
+                            }
                         </div>
                         <div class="form-group">
-                            <label>Blood Pressure (Systolic/Diastolic)</label>
-                            <input type="text" @bind="currentVital.BloodPressure" placeholder="e.g., 120/80" />
+                            <label>Blood Pressure (mmHg)</label>
+                            <input type="text"
+                                   @bind="currentVital.BloodPressure"
+                                   class="@(vitalsValidationErrors.ContainsKey(nameof(currentVital.BloodPressure)) ? "is-invalid" : "")"
+                                   placeholder="e.g., 120/80" />
+                            @if (vitalsValidationErrors.ContainsKey(nameof(currentVital.BloodPressure)))
+                            {
+                                <div class="invalid-feedback">
+                                    @vitalsValidationErrors[nameof(currentVital.BloodPressure)]
+                                </div>
+                            }
                         </div>
                         <div class="form-group">
                             <label>Heart Rate (bpm)</label>
-                            <input type="number" @bind="currentVital.HeartRate" placeholder="Enter heart rate" />
+                            <input type="number"
+                                   @bind="currentVital.HeartRate"
+                                   class="@(vitalsValidationErrors.ContainsKey(nameof(currentVital.HeartRate)) ? "is-invalid" : "")" />
+                            @if (vitalsValidationErrors.ContainsKey(nameof(currentVital.HeartRate)))
+                            {
+                                <div class="invalid-feedback">
+                                    @vitalsValidationErrors[nameof(currentVital.HeartRate)]
+                                </div>
+                            }
                         </div>
-                        <button class="btn-save" @onclick="SavePatientVitals">Save Vitals</button>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" @onclick="CloseEditVitalsModal">Cancel</button>
+                            <button class="btn btn-primary" @onclick="SavePatientVitals">Save Vitals</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -108,113 +206,231 @@
 </div>
 
 @code {
+    // State variables
     private string patientSearchTerm = "";
     private List<Patient> Patients = new();
     private List<Patient> FilteredPatients = new();
+    private List<Vital> patientVitals = new();
+    private bool isLoading = false;
+    private string? errorMessage;
+    private string? statusMessage;
+    private string statusMessageClass = "alert-success";
+    private string? vitalsErrorMessage;
     private bool showPatientDetailsModal = false;
     private bool showEditVitalsModal = false;
     private Patient selectedPatient = new();
     private Vital currentVital = new();
+    private Dictionary<string, string> vitalsValidationErrors = new();
 
     protected override async Task OnInitializedAsync()
     {
         await LoadPatients();
-        FilteredPatients = Patients;
     }
 
     private async Task LoadPatients()
     {
-        // Mock data - replace with actual database call
-        Patients = new List<Patient>
+        isLoading = true;
+        errorMessage = null;
+        StateHasChanged();
+
+        try
         {
-            new Patient
+            var response = await HttpClient.GetFromJsonAsync<List<Patient>>("https://localhost:7070/api/Patient");
+
+            if (response != null)
             {
-                PatientID = 1,
-                FullName = "John Doe",
-                DOB = DateTime.Now.AddYears(-35),
-                Gender = "Male",
-                ContactNumber = "123-456-7890",
-                BloodGroup = "O+",
-                Diagnoses = "Flu, Hypertension",
-                Treatments = "Prescribed medication for Flu, Regular checkups for Hypertension"
-            },
-            new Patient
-            {
-                PatientID = 2,
-                FullName = "Jane Smith",
-                DOB = DateTime.Now.AddYears(-28),
-                Gender = "Female",
-                ContactNumber = "987-654-3210",
-                BloodGroup = "A-",
-                Diagnoses = "Asthma",
-                Treatments = "Inhaler prescription, Annual lung function tests"
+                Patients = response;
+                FilteredPatients = Patients;
             }
-        };
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Failed to load patients: {ex.Message}";
+            Logger.LogError(ex, "Error loading patients");
+        }
+        finally
+        {
+            isLoading = false;
+            StateHasChanged();
+        }
+    }
+
+    private async Task LoadPatientVitals(int patientId)
+    {
+        try
+        {
+            var response = await HttpClient.GetFromJsonAsync<List<Vital>>(
+                $"https://localhost:7070/api/Vitals/patient/{patientId}");
+
+            if (response != null)
+            {
+                patientVitals = response;
+                Logger.LogInformation($"Loaded {patientVitals.Count} vitals for patient {patientId}");
+            }
+            else
+            {
+                patientVitals = new List<Vital>();
+                Logger.LogWarning($"Null response when loading vitals for patient {patientId}");
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, $"Error loading vitals for patient {patientId}");
+            patientVitals = new List<Vital>();
+        }
+        finally
+        {
+            StateHasChanged();
+        }
     }
 
     private void FilterPatients()
     {
-        FilteredPatients = Patients.Where(p =>
-            string.IsNullOrEmpty(patientSearchTerm) ||
-            p.PatientID.ToString().Contains(patientSearchTerm) ||
-            p.FullName.Contains(patientSearchTerm, StringComparison.OrdinalIgnoreCase)
-        ).ToList();
+        if (Patients == null) return;
+
+        FilteredPatients = Patients
+            .Where(p => string.IsNullOrEmpty(patientSearchTerm) ||
+                   p.PatientID.ToString().Contains(patientSearchTerm) ||
+                   p.FullName.Contains(patientSearchTerm, StringComparison.OrdinalIgnoreCase))
+            .OrderBy(p => p.FullName)
+            .ToList();
     }
 
-    private void ShowPatientDetails(Patient patient)
+    private int CalculateAge(DateTime dob)
+    {
+        var today = DateTime.Today;
+        var age = today.Year - dob.Year;
+        if (dob.Date > today.AddYears(-age)) age--;
+        return age;
+    }
+
+    private async Task ShowPatientDetails(Patient patient)
     {
         selectedPatient = patient;
+        await LoadPatientVitals(patient.PatientID);
         showPatientDetailsModal = true;
-    }
-
-    private void EditPatientVitals(Patient patient)
-    {
-        selectedPatient = patient;
-        currentVital = new Vital { PatientID = patient.PatientID };
-        showEditVitalsModal = true;
-    }
-
-    private void SavePatientVitals()
-    {
-        // TODO: Implement actual vital sign saving logic
-        Console.WriteLine($"Saving vitals for Patient ID: {currentVital.PatientID}");
-
-        // Reset and close modal
-        currentVital = new Vital { PatientID = selectedPatient.PatientID };
-        showEditVitalsModal = false;
     }
 
     private void ClosePatientDetailsModal()
     {
         showPatientDetailsModal = false;
+        patientVitals = new List<Vital>();
+    }
+
+    private void EditPatientVitals(Patient patient)
+    {
+        selectedPatient = patient;
+        currentVital = new Vital
+            {
+                PatientID = patient.PatientID,
+                RecordedAt = DateTime.Now
+            };
+        vitalsErrorMessage = null;
+        vitalsValidationErrors.Clear();
+        showEditVitalsModal = true;
     }
 
     private void CloseEditVitalsModal()
     {
         showEditVitalsModal = false;
         currentVital = new Vital();
+        vitalsValidationErrors.Clear();
     }
 
-    // Model classes
+    private bool ValidateVitals()
+    {
+        vitalsValidationErrors.Clear();
+
+        if (!currentVital.Temperature.HasValue || currentVital.Temperature < 34 || currentVital.Temperature > 42)
+        {
+            vitalsValidationErrors[nameof(currentVital.Temperature)] = "Temperature must be between 34°C and 42°C";
+        }
+
+        if (string.IsNullOrWhiteSpace(currentVital.BloodPressure) ||
+            !System.Text.RegularExpressions.Regex.IsMatch(currentVital.BloodPressure, @"^\d{1,3}/\d{1,3}$"))
+        {
+            vitalsValidationErrors[nameof(currentVital.BloodPressure)] = "Enter valid blood pressure (e.g., 120/80)";
+        }
+
+        if (!currentVital.HeartRate.HasValue || currentVital.HeartRate < 30 || currentVital.HeartRate > 200)
+        {
+            vitalsValidationErrors[nameof(currentVital.HeartRate)] = "Heart rate must be between 30 and 200 bpm";
+        }
+
+        return vitalsValidationErrors.Count == 0;
+    }
+
+    private async Task SavePatientVitals()
+    {
+        if (!ValidateVitals())
+        {
+            StateHasChanged();
+            return;
+        }
+
+        try
+        {
+            currentVital.RecordedAt = DateTime.Now;
+            var response = await HttpClient.PostAsJsonAsync("https://localhost:7070/api/Vitals", currentVital);
+
+            if (response.IsSuccessStatusCode)
+            {
+                statusMessage = "Vitals recorded successfully";
+                statusMessageClass = "alert-success";
+                await LoadPatientVitals(currentVital.PatientID ?? 0);
+                CloseEditVitalsModal();
+            }
+            else
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                vitalsErrorMessage = $"Failed to save vitals: {response.StatusCode} - {errorContent}";
+            }
+        }
+        catch (Exception ex)
+        {
+            vitalsErrorMessage = $"Error saving vitals: {ex.Message}";
+            Logger.LogError(ex, "Error saving patient vitals");
+        }
+        finally
+        {
+            StateHasChanged();
+        }
+    }
+
+    private void ClearError()
+    {
+        errorMessage = null;
+    }
+
+    private void ClearVitalsError()
+    {
+        vitalsErrorMessage = null;
+    }
+
+    // Model classes matching your backend
     public class Patient
     {
         public int PatientID { get; set; }
-        public string FullName { get; set; } = "";
+        public string FullName { get; set; } = string.Empty;
         public DateTime DOB { get; set; }
-        public string Gender { get; set; } = "";
-        public string ContactNumber { get; set; } = "";
-        public string BloodGroup { get; set; } = "";
-        public string Diagnoses { get; set; } = "";
-        public string Treatments { get; set; } = "";
+        public string Gender { get; set; } = string.Empty;
+        public string ContactNumber { get; set; } = string.Empty;
+        public string Address { get; set; } = string.Empty;
+        public string? MedicalHistory { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
-
+    
     public class Vital
     {
         public int VitalID { get; set; }
-        public int PatientID { get; set; }
-        public decimal Temperature { get; set; }
-        public string BloodPressure { get; set; } = "";
-        public int HeartRate { get; set; }
+        public int? PatientID { get; set; }
+        public Patient? Patient { get; set; } // Add this to match your JSON
+        public int? NurseID { get; set; }
+        public decimal? Temperature { get; set; }
+        public string? BloodPressure { get; set; }
+        public int? HeartRate { get; set; }
         public DateTime RecordedAt { get; set; }
     }
+
+  
 }
