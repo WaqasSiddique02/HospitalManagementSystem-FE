@@ -1,53 +1,102 @@
 ﻿@page "/login"
+@inject HttpClient Http
+@rendermode InteractiveServer
+@inject NavigationManager Navigation
 
 <section class="vh-100">
   <div class="container-fluid h-custom">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-md-9 col-lg-6 col-xl-5">
-        <img src="images/hospital-crm.jpg"
-          class="img-fluid" alt="crm image">
+        <img src="images/hospital-crm.jpg" class="img-fluid" alt="crm image">
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1 login-container">
-        <form>
-          <!-- Email input -->
-          <div data-mdb-input-init class="form-outline mb-4">
-            <input type="email" id="email_field" class="form-control form-control-lg"
-              placeholder="Enter a valid email address" />
-            <label class="form-label" for="email_field">Email address</label>
+        <form @onsubmit="HandleLogin">
+          <!-- Username input -->
+          <div class="form-outline mb-4">
+            <input @bind="username" type="text" id="username_field" 
+                   class="form-control form-control-lg"
+                   placeholder="Enter Username" />
+            <label class="form-label" for="username_field">Username</label>
           </div>
 
           <!-- Password input -->
-          <div data-mdb-input-init class="form-outline mb-3">
-            <input type="password" id="password_field" class="form-control form-control-lg"
-              placeholder="Enter password" />
+          <div class="form-outline mb-3">
+            <input @bind="password" type="password" id="password_field" 
+                   class="form-control form-control-lg"
+                   placeholder="Enter password" />
             <label class="form-label" for="password_field">Password</label>
           </div>
 
-          <div class="d-flex justify-content-between align-items-center">
-            <!-- Checkbox -->
-            <div class="form-check mb-0">
-              <input class="form-check-input me-2" type="checkbox" value="" id="checkbox" />
-              <label class="form-check-label" for="checkbox">
-                Remember me
-              </label>
-            </div>
-            <a href="#!" class="text-body">Forgot password?</a>
-          </div>
+                    @if (!string.IsNullOrEmpty(errorMessage))
+                    {
+                      <div class="alert alert-danger">@errorMessage</div>
+                    }
 
           <div class="text-center text-lg-start mt-4 pt-2">
-            <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
-              style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
-            <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"
-                class="link-danger">Register</a></p>
+            <button type="submit" class="btn btn-primary btn-lg"
+                    style="padding-left: 2.5rem; padding-right: 2.5rem; width:100%">
+              Login
+            </button>
           </div>
-
         </form>
       </div>
     </div>
   </div>
-  
 </section>
 
 @code {
+    private string username = string.Empty;
+    private string password = string.Empty;
+    private string errorMessage = string.Empty;
 
+    private async Task HandleLogin()
+    {
+        errorMessage = string.Empty;
+
+        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+        {
+            errorMessage = "Username and password are required";
+            return;
+        }
+
+        try
+        {
+            var loginRequest = new { Username = username, Password = password };
+            var response = await Http.PostAsJsonAsync("http://localhost:5022/api/User/login", loginRequest);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var user = await response.Content.ReadFromJsonAsync<UserResponse>();
+
+                // Store user info in session/local storage if needed
+                // await ProtectedLocalStorage.SetAsync("user", user);
+
+                // Redirect based on role
+                Navigation.NavigateTo(user.Role.ToLower() switch
+                {
+                    "admin" => "/adminpanel",
+                    "doctor" => "/doctor",
+                    "nurse" => "/nurse",
+                    _ => "/" // default redirect
+                });
+            }
+            else
+            {
+                errorMessage = await response.Content.ReadAsStringAsync();
+            }
+        }
+        catch (Exception)
+        {
+            errorMessage = "Login failed. Please try again.";
+        }
+    }
+
+    // Add these classes to match your backend DTOs
+    public class UserResponse
+    {
+        public int UserID { get; set; }
+        public string Username { get; set; }
+        public string FullName { get; set; }
+        public string Role { get; set; }
+    }
 }
