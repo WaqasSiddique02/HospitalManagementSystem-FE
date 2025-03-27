@@ -8,4 +8,5 @@ wwwroot\stylesheets\adminhome.css
 wwwroot\stylesheets\doctor.css
 wwwroot\stylesheets\login.css
 wwwroot\stylesheets\medicine.css
+wwwroot\stylesheets\nurse.css
 wwwroot\stylesheets\patients.css

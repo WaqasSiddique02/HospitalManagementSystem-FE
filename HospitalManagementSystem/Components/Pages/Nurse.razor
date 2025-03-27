@@ -1,0 +1,220 @@
+﻿@page "/nurse"
+@rendermode InteractiveServer
+
+<div class="nurse-container">
+    <header class="nurse-header">
+        <h1>Nurse Dashboard</h1>
+    </header>
+
+    <div class="patient-records-section">
+        <div class="header-controls">
+            <input type="text" class="search-bar" placeholder="Search patients by ID or Name"
+                   @bind="patientSearchTerm" @bind:event="oninput" @onkeyup="FilterPatients" />
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Patient ID</th>
+                        <th>Full Name</th>
+                        <th>Date of Birth</th>
+                        <th>Gender</th>
+                        <th>Contact Number</th>
+                        <th class="actions">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var patient in FilteredPatients)
+                    {
+                        <tr>
+                            <td>@patient.PatientID</td>
+                            <td>@patient.FullName</td>
+                            <td>@patient.DOB.ToString("yyyy-MM-dd")</td>
+                            <td>@patient.Gender</td>
+                            <td>@patient.ContactNumber</td>
+                            <td class="actions">
+                                <button class="btn-view" @onclick="() => ShowPatientDetails(patient)">
+                                    <i class="bi bi-eye"></i> View Details
+                                </button>
+                                <button class="btn-edit" @onclick="() => EditPatientVitals(patient)">
+                                    <i class="bi bi-pencil"></i> Edit
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    @if (showPatientDetailsModal)
+    {
+        <div class="modal-overlay" @onclick="ClosePatientDetailsModal">
+            <div class="modal-content patient-details" @onclick:stopPropagation>
+                <div class="modal-header">
+                    <h5>Patient Details</h5>
+                    <button class="btn-close" @onclick="ClosePatientDetailsModal">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="patient-info-section">
+                        <div class="patient-basic-info">
+                            <h6>Personal Information</h6>
+                            <p><strong>Name:</strong> @selectedPatient.FullName</p>
+                            <p><strong>Age:</strong> @(DateTime.Now.Year - selectedPatient.DOB.Year)</p>
+                            <p><strong>Gender:</strong> @selectedPatient.Gender</p>
+                            <p><strong>Blood Group:</strong> @selectedPatient.BloodGroup</p>
+                        </div>
+
+                        <div class="medical-history">
+                            <h6>Medical History</h6>
+                            <p><strong>Diagnoses:</strong> @selectedPatient.Diagnoses</p>
+                            <p><strong>Treatments:</strong> @selectedPatient.Treatments</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (showEditVitalsModal)
+    {
+        <div class="modal-overlay" @onclick="CloseEditVitalsModal">
+            <div class="modal-content edit-vitals-modal" @onclick:stopPropagation>
+                <div class="modal-header">
+                    <h5>Record Patient Vitals - @selectedPatient.FullName</h5>
+                    <button class="btn-close" @onclick="CloseEditVitalsModal">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="vitals-form">
+                        <div class="form-group">
+                            <label>Temperature (°C)</label>
+                            <input type="number" step="0.1" @bind="currentVital.Temperature" placeholder="Enter temperature" />
+                        </div>
+                        <div class="form-group">
+                            <label>Blood Pressure (Systolic/Diastolic)</label>
+                            <input type="text" @bind="currentVital.BloodPressure" placeholder="e.g., 120/80" />
+                        </div>
+                        <div class="form-group">
+                            <label>Heart Rate (bpm)</label>
+                            <input type="number" @bind="currentVital.HeartRate" placeholder="Enter heart rate" />
+                        </div>
+                        <button class="btn-save" @onclick="SavePatientVitals">Save Vitals</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private string patientSearchTerm = "";
+    private List<Patient> Patients = new();
+    private List<Patient> FilteredPatients = new();
+    private bool showPatientDetailsModal = false;
+    private bool showEditVitalsModal = false;
+    private Patient selectedPatient = new();
+    private Vital currentVital = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadPatients();
+        FilteredPatients = Patients;
+    }
+
+    private async Task LoadPatients()
+    {
+        // Mock data - replace with actual database call
+        Patients = new List<Patient>
+        {
+            new Patient
+            {
+                PatientID = 1,
+                FullName = "John Doe",
+                DOB = DateTime.Now.AddYears(-35),
+                Gender = "Male",
+                ContactNumber = "123-456-7890",
+                BloodGroup = "O+",
+                Diagnoses = "Flu, Hypertension",
+                Treatments = "Prescribed medication for Flu, Regular checkups for Hypertension"
+            },
+            new Patient
+            {
+                PatientID = 2,
+                FullName = "Jane Smith",
+                DOB = DateTime.Now.AddYears(-28),
+                Gender = "Female",
+                ContactNumber = "987-654-3210",
+                BloodGroup = "A-",
+                Diagnoses = "Asthma",
+                Treatments = "Inhaler prescription, Annual lung function tests"
+            }
+        };
+    }
+
+    private void FilterPatients()
+    {
+        FilteredPatients = Patients.Where(p =>
+            string.IsNullOrEmpty(patientSearchTerm) ||
+            p.PatientID.ToString().Contains(patientSearchTerm) ||
+            p.FullName.Contains(patientSearchTerm, StringComparison.OrdinalIgnoreCase)
+        ).ToList();
+    }
+
+    private void ShowPatientDetails(Patient patient)
+    {
+        selectedPatient = patient;
+        showPatientDetailsModal = true;
+    }
+
+    private void EditPatientVitals(Patient patient)
+    {
+        selectedPatient = patient;
+        currentVital = new Vital { PatientID = patient.PatientID };
+        showEditVitalsModal = true;
+    }
+
+    private void SavePatientVitals()
+    {
+        // TODO: Implement actual vital sign saving logic
+        Console.WriteLine($"Saving vitals for Patient ID: {currentVital.PatientID}");
+
+        // Reset and close modal
+        currentVital = new Vital { PatientID = selectedPatient.PatientID };
+        showEditVitalsModal = false;
+    }
+
+    private void ClosePatientDetailsModal()
+    {
+        showPatientDetailsModal = false;
+    }
+
+    private void CloseEditVitalsModal()
+    {
+        showEditVitalsModal = false;
+        currentVital = new Vital();
+    }
+
+    // Model classes
+    public class Patient
+    {
+        public int PatientID { get; set; }
+        public string FullName { get; set; } = "";
+        public DateTime DOB { get; set; }
+        public string Gender { get; set; } = "";
+        public string ContactNumber { get; set; } = "";
+        public string BloodGroup { get; set; } = "";
+        public string Diagnoses { get; set; } = "";
+        public string Treatments { get; set; } = "";
+    }
+
+    public class Vital
+    {
+        public int VitalID { get; set; }
+        public int PatientID { get; set; }
+        public decimal Temperature { get; set; }
+        public string BloodPressure { get; set; } = "";
+        public int HeartRate { get; set; }
+        public DateTime RecordedAt { get; set; }
+    }
+}
