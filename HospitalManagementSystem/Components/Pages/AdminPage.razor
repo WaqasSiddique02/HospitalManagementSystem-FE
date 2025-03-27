@@ -1,23 +1,37 @@
 ﻿@page "/admin"
 @rendermode InteractiveServer
+@inject HttpClient Http
 @inject NavigationManager Navigation
 
 <div class="admin-container">
-<header class="admin-header">
-    <h1>User Management</h1>
-    <div class="header-controls">
-        <input type="text" class="search-bar" placeholder="Search users..." @bind="searchTerm" @bind:event="oninput" @onkeyup="FilterUsers" />
-        <select class="role-filter" @bind="SelectedRole">
-            <option value="">All Roles</option>
-            <option value="Admin">Admin</option>
-            <option value="Doctor">Doctor</option>
-            <option value="Nurse">Nurse</option>
-        </select>
-        <button class="btn-add" @onclick="ShowInsertModal">
-            <i class="bi bi-plus-circle"></i> Add User
-        </button>
-    </div>
-</header>
+    @if (isLoading)
+    {
+            <div class="loading-overlay">
+                <div class="spinner"></div>
+            </div>
+    }
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+            <div class="alert alert-danger">@errorMessage</div>
+    }
+
+    <header class="admin-header">
+        <h1>User Management</h1>
+        <div class="header-controls">
+            <input type="text" class="search-bar" placeholder="Search users..." 
+                   @bind="searchTerm" @bind:event="oninput" @onkeyup="FilterUsers" />
+            <select class="role-filter" @bind="SelectedRole">
+                <option value="">All Roles</option>
+                <option value="Admin">Admin</option>
+                <option value="Doctor">Doctor</option>
+                <option value="Nurse">Nurse</option>
+            </select>
+            <button class="btn-add" @onclick="ShowInsertModal">
+                <i class="bi bi-plus-circle"></i> Add User
+            </button>
+        </div>
+    </header>
 
     <div class="table-container">
         <table>
@@ -67,7 +81,8 @@
                         </div>
                         <div class="form-group">
                             <label>Password</label>
-                            <input type="password" @bind="userToModify.PasswordHash" @bind:event="oninput" />
+                            <input type="password" @bind="userToModify.Password" @bind:event="oninput" 
+                                   placeholder="@(isEditMode ? "Leave blank to keep current" : "Required")" />
                         </div>
                         <div class="form-group">
                             <label>Full Name</label>
@@ -111,16 +126,36 @@
 </div>
 
 @code {
+    // API Configuration
+    private string apiUrl = "http://localhost:5022/api/User";
+
+    // Data
     private List<User> Users = new();
     private List<User> FilteredUsers = new();
+
+    // UI State
+    private bool isLoading = false;
+    private string errorMessage = string.Empty;
     private bool showModal = false;
     private bool isEditMode = false;
-    private User userToModify = new();
     private bool showDeleteConfirmation = false;
-    private User userToDelete = new();
     private string searchTerm = "";
-
     private string _selectedRole = "";
+
+    // Working Objects
+    private User userToModify = new();
+    private User userToDelete = new();
+
+    public class User
+    {
+        public int UserID { get; set; }
+        public string Username { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty; // For form binding only
+        public string FullName { get; set; } = string.Empty;
+        public string Role { get; set; } = "Admin"; // Default role
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+    }
+
     private string SelectedRole
     {
         get => _selectedRole;
@@ -131,31 +166,46 @@
         }
     }
 
-    private void NavigateToPatients()
-    {
-        Navigation.NavigateTo("/patients");
-    }
-
     protected override async Task OnInitializedAsync()
     {
         await LoadUsers();
-        FilteredUsers = Users;
     }
 
     private async Task LoadUsers()
     {
-        Users = new List<User>
+        isLoading = true;
+        errorMessage = string.Empty;
+        try
         {
-            new() { Username = "admin1", FullName = "Admin One", Role = "Admin", CreatedAt = DateTime.Now.AddDays(-1) },
-            new() { Username = "doctor1", FullName = "Doctor One", Role = "Doctor", CreatedAt = DateTime.Now.AddDays(-2) },
-            new() { Username = "nurse1", FullName = "Nurse One", Role = "Nurse", CreatedAt = DateTime.Now.AddDays(-3) }
-        };
+            var response = await Http.GetAsync(apiUrl);
+
+            if (response.IsSuccessStatusCode)
+            {
+                Users = await response.Content.ReadFromJsonAsync<List<User>>() ?? new List<User>();
+                FilteredUsers = Users;
+            }
+            else
+            {
+                errorMessage = "Failed to load users. Please try again.";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error loading users: {ex.Message}";
+            Console.WriteLine(errorMessage);
+        }
+        finally
+        {
+            isLoading = false;
+        }
     }
 
     private void FilterUsers()
     {
         FilteredUsers = Users.Where(u =>
-            (string.IsNullOrEmpty(searchTerm) || u.Username.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) || u.FullName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) &&
+            (string.IsNullOrEmpty(searchTerm) ||
+            u.Username.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+            u.FullName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) &&
             (string.IsNullOrEmpty(SelectedRole) || u.Role == SelectedRole)
         ).ToList();
     }
@@ -171,45 +221,101 @@
     {
         userToModify = new User
             {
+                UserID = user.UserID,
                 Username = user.Username,
                 FullName = user.FullName,
                 Role = user.Role,
                 CreatedAt = user.CreatedAt,
-                PasswordHash = "temp"
+                Password = "" // Don't pre-fill password
             };
         isEditMode = true;
         showModal = true;
     }
 
+    private async Task SaveUser()
+    {
+        isLoading = true;
+        errorMessage = string.Empty;
+
+        try
+        {
+            // Validate required fields
+            if (string.IsNullOrWhiteSpace(userToModify.Username) ||
+                (!isEditMode && string.IsNullOrWhiteSpace(userToModify.Password)))
+            {
+                errorMessage = "Username and password are required";
+                return;
+            }
+
+            if (isEditMode)
+            {
+                // Update existing user
+                var response = await Http.PutAsJsonAsync($"{apiUrl}/{userToModify.UserID}", new
+                {
+                    userToModify.UserID,
+                    userToModify.Username,
+                    Password = userToModify.Password, // Will be hashed in backend
+                    userToModify.FullName,
+                    userToModify.Role,
+                    userToModify.CreatedAt
+                });
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    errorMessage = await GetErrorMessage(response);
+                    return;
+                }
+            }
+            else
+            {
+                // Create new user
+                var response = await Http.PostAsJsonAsync(apiUrl, new
+                {
+                    userToModify.Username,
+                    Password = userToModify.Password, // Will be hashed in backend
+                    userToModify.FullName,
+                    userToModify.Role,
+                    CreatedAt = DateTime.Now
+                });
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    errorMessage = await GetErrorMessage(response);
+                    return;
+                }
+            }
+
+            await LoadUsers(); // Refresh the list
+            CloseModal();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error saving user: {ex.Message}";
+            Console.WriteLine(errorMessage);
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task<string> GetErrorMessage(HttpResponseMessage response)
+    {
+        try
+        {
+            var content = await response.Content.ReadAsStringAsync();
+            return content.Length > 100 ? "Operation failed" : content;
+        }
+        catch
+        {
+            return "Operation failed";
+        }
+    }
+
     private void CloseModal()
     {
         showModal = false;
-    }
-
-    private void SaveUser()
-    {
-        if (isEditMode)
-        {
-            var existingUser = Users.FirstOrDefault(u => u.Username == userToModify.Username);
-            if (existingUser != null)
-            {
-                existingUser.FullName = userToModify.FullName;
-                existingUser.Role = userToModify.Role;
-            }
-        }
-        else
-        {
-            Users.Add(new User
-                {
-                    Username = userToModify.Username,
-                    PasswordHash = userToModify.PasswordHash,
-                    FullName = userToModify.FullName,
-                    Role = userToModify.Role,
-                    CreatedAt = DateTime.Now
-                });
-        }
-        CloseModal();
-        FilterUsers();
+        errorMessage = string.Empty;
     }
 
     private void ShowDeleteModal(User user)
@@ -221,27 +327,41 @@
     private void CloseDeleteModal()
     {
         showDeleteConfirmation = false;
+        errorMessage = string.Empty;
     }
 
-    private void DeleteUser()
+    private async Task DeleteUser()
     {
-        Users.Remove(userToDelete);
-        CloseDeleteModal();
-        FilterUsers();
+        isLoading = true;
+        errorMessage = string.Empty;
+
+        try
+        {
+            var response = await Http.DeleteAsync($"{apiUrl}/{userToDelete.UserID}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                errorMessage = await GetErrorMessage(response);
+                return;
+            }
+
+            await LoadUsers(); // Refresh the list
+            CloseDeleteModal();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error deleting user: {ex.Message}";
+            Console.WriteLine(errorMessage);
+        }
+        finally
+        {
+            isLoading = false;
+        }
     }
 
     private void CloseModalIfBackdrop(MouseEventArgs args)
     {
         if (showModal) showModal = false;
         else if (showDeleteConfirmation) showDeleteConfirmation = false;
-    }
-
-    public class User
-    {
-        public string Username { get; set; } = "";
-        public string PasswordHash { get; set; } = "";
-        public string FullName { get; set; } = "";
-        public string Role { get; set; } = "";
-        public DateTime CreatedAt { get; set; }
     }
 }
