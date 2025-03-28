@@ -66,8 +66,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>ifv42okdf2</Fingerprint>
-      <Integrity>4mWsDy3aHl36ZbGt8zByK7Pvd4kRUoNgTYzRnwmPHwg=</Integrity>
+      <Fingerprint>hez7b21h8s</Fingerprint>
+      <Integrity>+THu91ZFT9kuJ1fjmaS3djsB2Xc2tEOBSfQa0qCCcZc=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.png'))</OriginalItemSpec>

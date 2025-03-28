@@ -235,7 +235,7 @@
 
         try
         {
-            var response = await HttpClient.GetFromJsonAsync<List<Patient>>("https://localhost:7070/api/Patient");
+            var response = await HttpClient.GetFromJsonAsync<List<Patient>>("http://localhost:5022/api/Patient");
 
             if (response != null)
             {
@@ -260,7 +260,7 @@
         try
         {
             var response = await HttpClient.GetFromJsonAsync<List<Vital>>(
-                $"https://localhost:7070/api/Vitals/patient/{patientId}");
+                $"http://localhost:5022/api/Vitals/patient/{patientId}");
 
             if (response != null)
             {
@@ -371,7 +371,7 @@
         try
         {
             currentVital.RecordedAt = DateTime.Now;
-            var response = await HttpClient.PostAsJsonAsync("https://localhost:7070/api/Vitals", currentVital);
+            var response = await HttpClient.PostAsJsonAsync("http://localhost:5022/api/Vitals", currentVital);
 
             if (response.IsSuccessStatusCode)
             {
