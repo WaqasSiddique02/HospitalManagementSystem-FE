@@ -120,8 +120,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>rdz4cnwkzc</Fingerprint>
-      <Integrity>4SvyKeZaktXBWaiTDD1KymUi6iiF7qJngehgZYC1IGg=</Integrity>
+      <Fingerprint>3yjo2swgwl</Fingerprint>
+      <Integrity>BVNX9Zxys5velhZHLpFlZS1VMWvPsWvrsZDKbAgTxz0=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\stylesheets\admin.css'))</OriginalItemSpec>
@@ -228,8 +228,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>15zb0d8g62</Fingerprint>
-      <Integrity>W6VC+0vGe3i0NVBRGrwIWfzuW9xyUHKfW2JCP7s4amE=</Integrity>
+      <Fingerprint>y04j3uvyui</Fingerprint>
+      <Integrity>3tmY1gnqLryt6LwZIab5YWT+9lO6ZXGY31EcPbuXiDI=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\stylesheets\patients.css'))</OriginalItemSpec>

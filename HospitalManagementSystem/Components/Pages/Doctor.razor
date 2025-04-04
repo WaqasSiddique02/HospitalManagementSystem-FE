@@ -2,9 +2,19 @@
 @rendermode InteractiveServer
 @inject HttpClient Http
 @inject NavigationManager Navigation
+@inject NavigationManager NavigationManager
 @inject ILogger<Doctor> Logger
 
 <div class="medical-dashboard-container">
+      <button @onclick="Logout" 
+            style="position: absolute; top: 20px; right: 20px; 
+                   background-color: transparent; border: 1px solid #dc3545; 
+                   color: #dc3545; padding: 6px 12px; border-radius: 4px; 
+                   cursor: pointer; transition: all 0.3s ease;"
+            onmouseover="this.style.backgroundColor='#dc3545'; this.style.color='white'"
+            onmouseout="this.style.backgroundColor='transparent'; this.style.color='#dc3545'">
+        <i class="bi bi-box-arrow-right" style="margin-right: 5px;"></i> Logout
+    </button>
     @if (isLoading)
     {
         <div class="loading-overlay">
@@ -234,6 +244,12 @@
 </div>
 
 @code {
+
+    private void Logout()
+    {
+        NavigationManager.NavigateTo("/login");
+    }
+
     // API Endpoints
     private string patientsApiUrl = "http://localhost:5022/api/Patient";
     private string medicationsApiUrl = "http://localhost:5022/api/Medications";

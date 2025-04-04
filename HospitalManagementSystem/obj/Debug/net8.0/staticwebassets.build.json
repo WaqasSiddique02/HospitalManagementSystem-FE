@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "PinVGb+WuvCNSxh+6aqMKIbZbIhXyWKvybPJG05uq3Y=",
+  "Hash": "ONI39NrHIocjHmuLTcsohqrHzo6pztYsUJsU08lYxLw=",
   "Source": "HospitalManagementSystem",
   "BasePath": "_content/HospitalManagementSystem",
   "Mode": "Default",
@@ -178,8 +178,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "rdz4cnwkzc",
-      "Integrity": "4SvyKeZaktXBWaiTDD1KymUi6iiF7qJngehgZYC1IGg=",
+      "Fingerprint": "3yjo2swgwl",
+      "Integrity": "BVNX9Zxys5velhZHLpFlZS1VMWvPsWvrsZDKbAgTxz0=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\stylesheets\\admin.css"
@@ -304,8 +304,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "15zb0d8g62",
-      "Integrity": "W6VC+0vGe3i0NVBRGrwIWfzuW9xyUHKfW2JCP7s4amE=",
+      "Fingerprint": "y04j3uvyui",
+      "Integrity": "3tmY1gnqLryt6LwZIab5YWT+9lO6ZXGY31EcPbuXiDI=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\stylesheets\\patients.css"
@@ -887,6 +887,51 @@
       ]
     },
     {
+      "Route": "stylesheets/admin.3yjo2swgwl.css",
+      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\admin.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1817"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"BVNX9Zxys5velhZHLpFlZS1VMWvPsWvrsZDKbAgTxz0=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 04 Apr 2025 15:03:36 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "3yjo2swgwl"
+        },
+        {
+          "Name": "label",
+          "Value": "stylesheets/admin.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-BVNX9Zxys5velhZHLpFlZS1VMWvPsWvrsZDKbAgTxz0="
+        }
+      ]
+    },
+    {
       "Route": "stylesheets/admin.css",
       "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\admin.css",
       "Selectors": [],
@@ -897,7 +942,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "1813"
+          "Value": "1817"
         },
         {
           "Name": "Content-Type",
@@ -905,11 +950,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"4SvyKeZaktXBWaiTDD1KymUi6iiF7qJngehgZYC1IGg=\""
+          "Value": "\"BVNX9Zxys5velhZHLpFlZS1VMWvPsWvrsZDKbAgTxz0=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 27 Mar 2025 20:14:54 GMT"
+          "Value": "Fri, 04 Apr 2025 15:03:36 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -919,52 +964,7 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-4SvyKeZaktXBWaiTDD1KymUi6iiF7qJngehgZYC1IGg="
-        }
-      ]
-    },
-    {
-      "Route": "stylesheets/admin.rdz4cnwkzc.css",
-      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\admin.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "1813"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"4SvyKeZaktXBWaiTDD1KymUi6iiF7qJngehgZYC1IGg=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 27 Mar 2025 20:14:54 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "rdz4cnwkzc"
-        },
-        {
-          "Name": "label",
-          "Value": "stylesheets/admin.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-4SvyKeZaktXBWaiTDD1KymUi6iiF7qJngehgZYC1IGg="
+          "Value": "sha256-BVNX9Zxys5velhZHLpFlZS1VMWvPsWvrsZDKbAgTxz0="
         }
       ]
     },
@@ -1379,51 +1379,6 @@
       ]
     },
     {
-      "Route": "stylesheets/patients.15zb0d8g62.css",
-      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\patients.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "4926"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"W6VC+0vGe3i0NVBRGrwIWfzuW9xyUHKfW2JCP7s4amE=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 27 Mar 2025 20:14:54 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "15zb0d8g62"
-        },
-        {
-          "Name": "label",
-          "Value": "stylesheets/patients.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-W6VC+0vGe3i0NVBRGrwIWfzuW9xyUHKfW2JCP7s4amE="
-        }
-      ]
-    },
-    {
       "Route": "stylesheets/patients.css",
       "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\patients.css",
       "Selectors": [],
@@ -1434,7 +1389,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "4926"
+          "Value": "4932"
         },
         {
           "Name": "Content-Type",
@@ -1442,11 +1397,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"W6VC+0vGe3i0NVBRGrwIWfzuW9xyUHKfW2JCP7s4amE=\""
+          "Value": "\"3tmY1gnqLryt6LwZIab5YWT+9lO6ZXGY31EcPbuXiDI=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 27 Mar 2025 20:14:54 GMT"
+          "Value": "Fri, 04 Apr 2025 15:04:31 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -1456,7 +1411,52 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-W6VC+0vGe3i0NVBRGrwIWfzuW9xyUHKfW2JCP7s4amE="
+          "Value": "sha256-3tmY1gnqLryt6LwZIab5YWT+9lO6ZXGY31EcPbuXiDI="
+        }
+      ]
+    },
+    {
+      "Route": "stylesheets/patients.y04j3uvyui.css",
+      "AssetFile": "D:\\Learning\\Projects\\Hospital Management System C#\\HospitalManagementSystem-FE\\HospitalManagementSystem\\wwwroot\\stylesheets\\patients.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4932"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"3tmY1gnqLryt6LwZIab5YWT+9lO6ZXGY31EcPbuXiDI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 04 Apr 2025 15:04:31 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "y04j3uvyui"
+        },
+        {
+          "Name": "label",
+          "Value": "stylesheets/patients.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-3tmY1gnqLryt6LwZIab5YWT+9lO6ZXGY31EcPbuXiDI="
         }
       ]
     }

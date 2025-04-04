@@ -2,8 +2,18 @@
 @rendermode InteractiveServer
 @inject HttpClient HttpClient
 @inject ILogger<Nurse> Logger
+@inject NavigationManager NavigationManager
 
 <div class="nurse-container">
+       <button @onclick="Logout" 
+            style="position: absolute; top: 20px; right: 20px; 
+                   background-color: transparent; border: 1px solid #dc3545; 
+                   color: #dc3545; padding: 6px 12px; border-radius: 4px; 
+                   cursor: pointer; transition: all 0.3s ease;"
+            onmouseover="this.style.backgroundColor='#dc3545'; this.style.color='white'"
+            onmouseout="this.style.backgroundColor='transparent'; this.style.color='#dc3545'">
+        <i class="bi bi-box-arrow-right" style="margin-right: 5px;"></i> Logout
+    </button>
     <header class="nurse-header">
         <h1 id="nurse-headingg">Nurse Dashboard</h1>
         <div class="status-message">
@@ -206,6 +216,10 @@
 </div>
 
 @code {
+    private void Logout()
+    {
+        NavigationManager.NavigateTo("/login");
+    }
     // State variables
     private string patientSearchTerm = "";
     private List<Patient> Patients = new();
