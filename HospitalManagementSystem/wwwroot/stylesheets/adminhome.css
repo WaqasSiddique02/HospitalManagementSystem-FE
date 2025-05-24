@@ -1,0 +1,61 @@
+﻿/* Custom styles for Admin Dashboard */
+.admin-card {
+    max-width: 1200px;
+    width: 100%;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+}
+
+.card-option {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .card-option:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+    }
+
+.hover-scale {
+    transition: transform 0.3s ease;
+}
+
+    .hover-scale:hover {
+        transform: scale(1.05);
+    }
+
+.bg-light {
+    background-color: #f8f9fa !important;
+}
+
+.text-primary {
+    color: #007bff !important;
+}
+
+.text-success {
+    color: #28a745 !important;
+}
+
+.text-warning {
+    color: #ffc107 !important;
+}
+
+.text-secondary {
+    color: #6c757d !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .admin-card {
+        padding: 1.5rem;
+    }
+
+    .card-option {
+        padding: 2rem 1rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+    }
+}

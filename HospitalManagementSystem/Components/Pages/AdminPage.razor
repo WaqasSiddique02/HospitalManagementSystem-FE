@@ -1,0 +1,399 @@
+﻿@page "/admin"
+@rendermode InteractiveServer
+@inject HttpClient Http
+@inject NavigationManager Navigation
+
+<div class="admin-container">
+    <div class="logout-container">
+        <button @onclick="Logout"
+                style="position: absolute; top: 20px; right: 20px;
+               background-color: transparent; border: 1px solid #dc3545;
+               color: #dc3545; padding: 6px 12px; border-radius: 4px;
+               cursor: pointer; transition: all 0.3s ease;"
+                onmouseover="this.style.backgroundColor='#dc3545'; this.style.color='white'"
+                onmouseout="this.style.backgroundColor='transparent'; this.style.color='#dc3545'">
+            <i class="bi bi-box-arrow-right" style="margin-right: 5px;"></i> Logout
+        </button>
+
+        <!-- Add Back Button Here -->
+        <button @onclick="GoBack"
+                style="position: absolute; top: 20px; left: 20px;
+               background-color: transparent; border: 1px solid #581845;
+               color: #581845; padding: 6px 12px; border-radius: 4px;
+               cursor: pointer; transition: all 0.3s ease;"
+                onmouseover="this.style.backgroundColor='#581845'; this.style.color='white'"
+                onmouseout="this.style.backgroundColor='transparent'; this.style.color='#581845'">
+            <i class="bi bi-arrow-left" style="margin-right: 5px;"></i> Back
+        </button>
+    </div>
+    @if (isLoading)
+    {
+            <div class="loading-overlay">
+                <div class="spinner"></div>
+            </div>
+    }
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+            <div class="alert alert-danger">@errorMessage</div>
+    }
+
+    <header class="admin-header">
+        <h1>User Management</h1>
+        <div class="header-controls">
+            <input type="text" class="search-bar" placeholder="Search users..." 
+                   @bind="searchTerm" @bind:event="oninput" @onkeyup="FilterUsers" />
+            <select class="role-filter" @bind="SelectedRole">
+                <option value="">All Roles</option>
+                <option value="Admin">Admin</option>
+                <option value="Doctor">Doctor</option>
+                <option value="Nurse">Nurse</option>
+            </select>
+            <button class="btn-add" @onclick="ShowInsertModal">
+                <i class="bi bi-plus-circle"></i> Add User
+            </button>
+        </div>
+    </header>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Full Name</th>
+                    <th>Role</th>
+                    <th>Created At</th>
+                    <th class="actions">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in FilteredUsers)
+                {
+                        <tr>
+                            <td>@user.Username</td>
+                            <td>@user.FullName</td>
+                            <td>@user.Role</td>
+                            <td>@user.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                            <td class="actions">
+                                <button class="btn-edit" @onclick="() => ShowEditModal(user)">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button class="btn-delete" @onclick="() => ShowDeleteModal(user)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (showModal)
+    {
+            <div class="modal-overlay" @onclick="CloseModalIfBackdrop">
+                <div class="modal-content" @onclick:stopPropagation>
+                    <div class="modal-header">
+                        <h5>@(isEditMode ? "Edit User" : "Add User")</h5>
+                        <button class="btn-close" @onclick="CloseModal">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" @bind="userToModify.Username" @bind:event="oninput" />
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" @bind="userToModify.Password" @bind:event="oninput" 
+                                   placeholder="@(isEditMode ? "Leave blank to keep current" : "Required")" />
+                        </div>
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" @bind="userToModify.FullName" @bind:event="oninput" />
+                        </div>
+                        <div class="form-group">
+                            <label>Role</label>
+                            <select @bind="userToModify.Role">
+                                <option value="Admin">Admin</option>
+                                <option value="Doctor">Doctor</option>
+                                <option value="Nurse">Nurse</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn-cancel" @onclick="CloseModal">Cancel</button>
+                        <button class="btn-save" @onclick="SaveUser">@(isEditMode ? "Update" : "Save")</button>
+                    </div>
+                </div>
+            </div>
+    }
+
+    @if (showDeleteConfirmation)
+    {
+            <div class="modal-overlay" @onclick="CloseModalIfBackdrop">
+                <div class="modal-content" @onclick:stopPropagation>
+                    <div class="modal-header">
+                        <h5>Confirm Delete</h5>
+                        <button class="btn-close" @onclick="CloseDeleteModal">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete user: <strong>@userToDelete.Username</strong>?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn-cancel" @onclick="CloseDeleteModal">Cancel</button>
+                        <button class="btn-delete" @onclick="DeleteUser">Delete</button>
+                    </div>
+                </div>
+            </div>
+    }
+</div>
+
+@code {
+
+    private void Logout()
+    {
+        Navigation.NavigateTo("/login");
+    }
+    private void GoBack()
+    {
+        Navigation.NavigateTo("/adminpanel");
+    }
+
+    // API Configuration
+    private string apiUrl = "http://localhost:5022/api/User";
+
+    // Data
+    private List<User> Users = new();
+    private List<User> FilteredUsers = new();
+
+    // UI State
+    private bool isLoading = false;
+    private string errorMessage = string.Empty;
+    private bool showModal = false;
+    private bool isEditMode = false;
+    private bool showDeleteConfirmation = false;
+    private string searchTerm = "";
+    private string _selectedRole = "";
+
+    // Working Objects
+    private User userToModify = new();
+    private User userToDelete = new();
+
+    public class User
+    {
+        public int UserID { get; set; }
+        public string Username { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty; // For form binding only
+        public string FullName { get; set; } = string.Empty;
+        public string Role { get; set; } = "Admin"; // Default role
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+    }
+
+    private string SelectedRole
+    {
+        get => _selectedRole;
+        set
+        {
+            _selectedRole = value;
+            FilterUsers();
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadUsers();
+    }
+
+    private async Task LoadUsers()
+    {
+        isLoading = true;
+        errorMessage = string.Empty;
+        try
+        {
+            var response = await Http.GetAsync(apiUrl);
+
+            if (response.IsSuccessStatusCode)
+            {
+                Users = await response.Content.ReadFromJsonAsync<List<User>>() ?? new List<User>();
+                FilteredUsers = Users;
+            }
+            else
+            {
+                errorMessage = "Failed to load users. Please try again.";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error loading users: {ex.Message}";
+            Console.WriteLine(errorMessage);
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private void FilterUsers()
+    {
+        FilteredUsers = Users.Where(u =>
+            (string.IsNullOrEmpty(searchTerm) ||
+            u.Username.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+            u.FullName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)) &&
+            (string.IsNullOrEmpty(SelectedRole) || u.Role == SelectedRole)
+        ).ToList();
+    }
+
+    private void ShowInsertModal()
+    {
+        userToModify = new User();
+        isEditMode = false;
+        showModal = true;
+    }
+
+    private void ShowEditModal(User user)
+    {
+        userToModify = new User
+            {
+                UserID = user.UserID,
+                Username = user.Username,
+                FullName = user.FullName,
+                Role = user.Role,
+                CreatedAt = user.CreatedAt,
+                Password = "" // Don't pre-fill password
+            };
+        isEditMode = true;
+        showModal = true;
+    }
+
+    private async Task SaveUser()
+    {
+        isLoading = true;
+        errorMessage = string.Empty;
+
+        try
+        {
+            // Validate required fields
+            if (string.IsNullOrWhiteSpace(userToModify.Username) ||
+                (!isEditMode && string.IsNullOrWhiteSpace(userToModify.Password)))
+            {
+                errorMessage = "Username and password are required";
+                return;
+            }
+
+            if (isEditMode)
+            {
+                // Update existing user
+                var response = await Http.PutAsJsonAsync($"{apiUrl}/{userToModify.UserID}", new
+                {
+                    userToModify.UserID,
+                    userToModify.Username,
+                    Password = userToModify.Password, // Will be hashed in backend
+                    userToModify.FullName,
+                    userToModify.Role,
+                    userToModify.CreatedAt
+                });
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    errorMessage = await GetErrorMessage(response);
+                    return;
+                }
+            }
+            else
+            {
+                // Create new user
+                var response = await Http.PostAsJsonAsync(apiUrl, new
+                {
+                    userToModify.Username,
+                    Password = userToModify.Password, // Will be hashed in backend
+                    userToModify.FullName,
+                    userToModify.Role,
+                    CreatedAt = DateTime.Now
+                });
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    errorMessage = await GetErrorMessage(response);
+                    return;
+                }
+            }
+
+            await LoadUsers(); // Refresh the list
+            CloseModal();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error saving user: {ex.Message}";
+            Console.WriteLine(errorMessage);
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async Task<string> GetErrorMessage(HttpResponseMessage response)
+    {
+        try
+        {
+            var content = await response.Content.ReadAsStringAsync();
+            return content.Length > 100 ? "Operation failed" : content;
+        }
+        catch
+        {
+            return "Operation failed";
+        }
+    }
+
+    private void CloseModal()
+    {
+        showModal = false;
+        errorMessage = string.Empty;
+    }
+
+    private void ShowDeleteModal(User user)
+    {
+        userToDelete = user;
+        showDeleteConfirmation = true;
+    }
+
+    private void CloseDeleteModal()
+    {
+        showDeleteConfirmation = false;
+        errorMessage = string.Empty;
+    }
+
+    private async Task DeleteUser()
+    {
+        isLoading = true;
+        errorMessage = string.Empty;
+
+        try
+        {
+            var response = await Http.DeleteAsync($"{apiUrl}/{userToDelete.UserID}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                errorMessage = await GetErrorMessage(response);
+                return;
+            }
+
+            await LoadUsers(); // Refresh the list
+            CloseDeleteModal();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error deleting user: {ex.Message}";
+            Console.WriteLine(errorMessage);
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private void CloseModalIfBackdrop(MouseEventArgs args)
+    {
+        if (showModal) showModal = false;
+        else if (showDeleteConfirmation) showDeleteConfirmation = false;
+    }
+}

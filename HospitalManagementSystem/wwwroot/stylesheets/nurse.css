@@ -1,0 +1,338 @@
+﻿/* Reuse most of the previous CSS with minor modifications */
+:root {
+    --primary: #20b2aa; /* Changed to a different color for nurses */
+    --secondary: #6c757d;
+    --success: #28a745;
+    --danger: #dc3545;
+    --info: #17a2b8;
+    --warning: #ffc107;
+    --background: #f4f7fa;
+    --text: #333;
+    --text-light: #6c757d;
+    --border-color: #e9ecef;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.medical-dashboard-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.medical-dashboard-header {
+    background: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: var(--medical-shadow);
+    margin-bottom: 20px;
+}
+
+    .medical-dashboard-header h1 {
+        color: var(--medical-primary);
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+.medical-patient-records-section {
+    flex-grow: 1;
+    background: white;
+    border-radius: 8px;
+    box-shadow: var(--medical-shadow);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.medical-header-controls {
+    margin-bottom: 20px;
+}
+
+.medical-search-bar {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid var(--medical-border-color);
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.medical-table-container {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 10;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--medical-border-color);
+}
+
+th {
+    background-color: var(--medical-primary);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.medical-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.medical-btn-view, .medical-btn-edit {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.medical-btn-view {
+    background: var(--medical-info);
+    color: white;
+}
+
+.medical-btn-edit {
+    background: var(--medical-primary);
+    color: white;
+}
+
+.medical-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.medical-modal-content {
+    background: white;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    position: relative;
+}
+
+.medical-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--medical-border-color);
+    background-color: var(--medical-primary);
+    color: white;
+}
+
+    .medical-modal-header h5 {
+        margin: 0;
+        font-size: 1.1rem;
+    }
+
+.medical-btn-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.medical-modal-body {
+    padding: 20px;
+}
+
+.medical-patient-edit-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.medical-form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+    .medical-form-section h6 {
+        color: var(--medical-primary);
+        border-bottom: 2px solid var(--medical-primary);
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+    }
+
+.medical-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+    .medical-form-group label {
+        font-weight: 500;
+        color: var(--medical-text-light);
+    }
+
+    .medical-form-group input,
+    .medical-form-group select,
+    .medical-form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid var(--medical-border-color);
+        border-radius: 4px;
+        transition: border-color 0.3s ease;
+    }
+
+.medical-btn-save {
+    background: var(--medical-success);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .medical-patient-edit-form {
+        grid-template-columns: 1fr;
+    }
+}
+
+.btn-administer {
+    background: var(--success);
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+    .btn-administer:disabled {
+        background: var(--secondary);
+        cursor: not-allowed;
+    }
+
+.patient-details-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.patient-info, .vitals-section, .medication-schedule-section {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+}
+
+@media (max-width: 768px) {
+    .patient-details-section {
+        grid-template-columns: 1fr;
+    }
+}
+/* Previous CSS remains the same, adding these specific styles */
+.patient-info-section {
+    display: flex;
+    gap: 20px;
+}
+
+.patient-basic-info, .medical-history {
+    flex: 1;
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+}
+
+    .patient-basic-info h6, .medical-history h6 {
+        border-bottom: 2px solid var(--primary);
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+        color: var(--primary);
+    }
+
+    .patient-basic-info p, .medical-history p {
+        margin-bottom: 10px;
+    }
+
+@media (max-width: 768px) {
+    .patient-info-section {
+        flex-direction: column;
+    }
+}
+.btn-view {
+    background-color: var(--success); /* This uses the success color */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+    .btn-view:hover {
+        background-color: #218838; /* Slightly darker green on hover */
+    }
+
+.search-bar {
+    width: 100%; /* Full width */
+   
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid #333; /* Light teal border */
+    border-radius: 25px; /* Fully rounded corners */
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+    .search-bar:focus {
+        border-color: #1fa3a3; /* Darker teal on focus */
+        box-shadow: 0 0 5px rgba(31, 163, 163, 0.5);
+    }
+
+::placeholder {
+    color: #888; /* Light gray text */
+}
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+#nurse-headingg {
+    color: #20b2aa;
+    font-size: 30px;
+    margin-bottom: 20px;
+}

@@ -1,0 +1,152 @@
+﻿@page "/login"
+@inject HttpClient Http
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+@rendermode InteractiveServer
+
+<style>
+    .gradient-bg-teal {
+        background: linear-gradient(135deg, rgba(224, 242, 241, 0.98) 0%, rgba(178, 223, 219, 0.95) 50%, rgba(128, 203, 196, 0.9) 100%);
+    }
+
+    .login-card {
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0, 119, 182, 0.12);
+        background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.9) 0%, rgba(236, 253, 245, 0.9) 100%);
+        backdrop-filter: blur(8px);
+        border: none;
+    }
+
+    .form-control-lg {
+        border-radius: 8px;
+        padding: 12px 15px;
+        border: 1px solid #dee2e6;
+    }
+</style>
+
+<div class="vh-100 gradient-bg-teal d-flex align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="login-card overflow-hidden">
+                    <div class="row g-0">
+                        <!-- Image Column -->
+                        <div class="col-md-6 d-none d-md-flex align-items-center justify-content-center"
+                             style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);">
+                            <img src="images/servies-image-768x603.png" class="img-fluid p-5" style="max-height: 400px;"
+                                 alt="Hospital management system">
+                        </div>
+
+                        <!-- Form Column -->
+                        <div class="col-md-6 p-5">
+                            <div class="text-center mb-4">
+                                <h3 class="fw-bold text-primary">Hospital Staff Login</h3>
+                                <p class="text-muted">Access your account to continue</p>
+                            </div>
+
+                            <form @onsubmit="HandleLogin">
+                                <!-- Username input -->
+                                <div class="form-outline mb-4">
+                                    <input @bind="username" type="text" class="form-control form-control-lg"
+                                           placeholder="Enter Username" />
+                                    <label class="form-label">Username</label>
+                                </div>
+
+                                <!-- Password input -->
+                                <div class="form-outline mb-4">
+                                    <input @bind="password" type="password" class="form-control form-control-lg"
+                                           placeholder="Enter password" />
+                                    <label class="form-label">Password</label>
+                                </div>
+
+                                @if (!string.IsNullOrEmpty(errorMessage))
+                                {
+                                    <div class="alert alert-danger mb-4">@errorMessage</div>
+                                }
+
+                                <div class="text-center text-lg-start mt-4 pt-2">
+                                    <button type="submit" class="btn btn-primary btn-lg w-100 py-3">
+                                        Login
+                                    </button>
+                                    <div class="text-center mt-3">
+                                        <p>Don't have an account? <a href="/signup" class="text-primary fw-semibold">Register here</a></p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private string username = string.Empty;
+    private string password = string.Empty;
+    private string errorMessage = string.Empty;
+
+    private async Task HandleLogin()
+    {
+        errorMessage = string.Empty;
+
+        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+        {
+            errorMessage = "Username and password are required.";
+            return;
+        }
+
+        try
+        {
+            var loginRequest = new { Username = username, Password = password };
+            var response = await Http.PostAsJsonAsync("http://localhost:5022/api/User/login", loginRequest);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var loginResponse = await response.Content.ReadFromJsonAsync<LoginResponse>();
+                var user = loginResponse?.User;
+
+                if (user == null)
+                {
+                    errorMessage = "Invalid user data received.";
+                    return;
+                }
+
+                // Store token in local storage for future requests (optional)
+                await JS.InvokeVoidAsync("localStorage.setItem", "authToken", loginResponse.Token);
+
+                // Navigate based on user role
+                Navigation.NavigateTo(user.Role.ToLower() switch
+                {
+                    "admin" => "/adminpanel",
+                    "doctor" => "/doctor",
+                    "nurse" => "/nurse",
+                    _ => "/"
+                });
+            }
+            else
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                errorMessage = string.IsNullOrWhiteSpace(error) ? "Login failed." : error;
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Login failed. Please try again.";
+        }
+    }
+
+    public class LoginResponse
+    {
+        public string Token { get; set; }
+        public UserResponse User { get; set; }
+    }
+
+    public class UserResponse
+    {
+        public int UserID { get; set; }
+        public string Username { get; set; }
+        public string FullName { get; set; }
+        public string Role { get; set; }
+    }
+}

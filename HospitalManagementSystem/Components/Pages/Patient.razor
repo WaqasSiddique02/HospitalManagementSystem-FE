@@ -1,0 +1,413 @@
+﻿@page "/patients"
+@rendermode InteractiveServer
+@inject HttpClient Http
+@inject NavigationManager Navigation
+@inject NavigationManager NavigationManager
+
+<div class="patient-container">
+    <button @onclick="Logout"
+            style="position: absolute; top: 20px; right: 20px;
+               background-color: transparent; border: 1px solid #dc3545;
+               color: #dc3545; padding: 6px 12px; border-radius: 4px;
+               cursor: pointer; transition: all 0.3s ease;"
+            onmouseover="this.style.backgroundColor='#dc3545'; this.style.color='white'"
+            onmouseout="this.style.backgroundColor='transparent'; this.style.color='#dc3545'">
+        <i class="bi bi-box-arrow-right" style="margin-right: 5px;"></i> Logout
+    </button>
+
+    <!-- Add Back Button Here -->
+    <button @onclick="GoBack"
+            style="position: absolute; top: 20px; left: 20px;
+               background-color: transparent; border: 1px solid #581845;
+               color: #581845; padding: 6px 12px; border-radius: 4px;
+               cursor: pointer; transition: all 0.3s ease;"
+            onmouseover="this.style.backgroundColor='#581845'; this.style.color='white'"
+            onmouseout="this.style.backgroundColor='transparent'; this.style.color='#581845'">
+        <i class="bi bi-arrow-left" style="margin-right: 5px;"></i> Back
+    </button>
+    @if (isLoading)
+    {
+            <div class="loading-overlay">
+                <div class="spinner"></div>
+            </div>
+    }
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+            <div class="alert alert-danger">@errorMessage</div>
+    }
+
+    <header class="patient-header">
+        <h1>Patient Management</h1>
+        <div class="header-controls">
+            <input type="text" class="search-bar" placeholder="Search patients..." 
+                   @bind="searchTerm" @bind:event="oninput" @onkeyup="FilterPatients" />
+            <select class="gender-filter" @bind="SelectedGender">
+                <option value="">All Genders</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+            <button class="btn-add" @onclick="ShowInsertModal">
+                <i class="bi bi-plus-circle"></i> Add Patient
+            </button>
+        </div>
+    </header>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Patient ID</th>
+                    <th>Full Name</th>
+                    <th>Date of Birth</th>
+                    <th>Gender</th>
+                    <th>Contact Number</th>
+                    <th class="actions">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var patient in FilteredPatients)
+                {
+                        <tr>
+                            <td>@patient.PatientID</td>
+                            <td>@patient.FullName</td>
+                            <td>@patient.DOB.ToString("yyyy-MM-dd")</td>
+                            <td>@patient.Gender</td>
+                            <td>@patient.ContactNumber</td>
+                            <td class="actions">
+                                <button class="btn-edit" @onclick="() => ShowEditModal(patient)">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button class="btn-delete" @onclick="() => ShowDeleteModal(patient)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    @if (showModal)
+    {
+            <div class="modal-overlay" @onclick="CloseModalIfBackdrop">
+                <div class="modal-content" @onclick:stopPropagation>
+                    <div class="modal-header">
+                        <h5>@(isEditMode ? "Edit Patient" : "Add Patient")</h5>
+                        <button class="btn-close" @onclick="CloseModal">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Full Name *</label>
+                            <input type="text" @bind="currentPatient.FullName" />
+                        @if (nameValidationError)
+                        {
+                                    <span class="validation-error">Full name is required</span>
+                        }
+                        </div>
+                        <div class="form-group">
+                            <label>Date of Birth *</label>
+                            <input type="date" @bind="currentPatient.DOB" />
+                        @if (dobValidationError)
+                        {
+                                    <span class="validation-error">Date of birth is required</span>
+                        }
+                        </div>
+                        <div class="form-group">
+                            <label>Gender *</label>
+                            <select @bind="currentPatient.Gender">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        @if (genderValidationError)
+                        {
+                                    <span class="validation-error">Gender is required</span>
+                        }
+                        </div>
+                        <div class="form-group">
+                            <label>Contact Number *</label>
+                            <input type="tel" @bind="currentPatient.ContactNumber" />
+                        @if (contactValidationError)
+                        {
+                                    <span class="validation-error">Contact number is required</span>
+                        }
+                        </div>
+                        <div class="form-group">
+                            <label>Address *</label>
+                            <input type="text" @bind="currentPatient.Address" />
+                        @if (addressValidationError)
+                        {
+                                    <span class="validation-error">Address is required</span>
+                        }
+                        </div>
+                        <div class="form-group">
+                            <label>Medical History</label>
+                            <textarea @bind="currentPatient.MedicalHistory"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn-cancel" @onclick="CloseModal">Cancel</button>
+                        <button class="btn-save" @onclick="SavePatient">@(isEditMode ? "Update" : "Save")</button>
+                    </div>
+                </div>
+            </div>
+    }
+
+    @if (showDeleteConfirmation)
+    {
+            <div class="modal-overlay" @onclick="CloseModalIfBackdrop">
+                <div class="modal-content" @onclick:stopPropagation>
+                    <div class="modal-header">
+                        <h5>Confirm Delete</h5>
+                        <button class="btn-close" @onclick="CloseDeleteModal">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete patient: <strong>@patientToDelete.FullName</strong>?</p>
+                        <p class="text-danger">This action cannot be undone.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn-cancel" @onclick="CloseDeleteModal">Cancel</button>
+                        <button class="btn-delete" @onclick="ConfirmDelete">Delete</button>
+                    </div>
+                </div>
+            </div>
+    }
+</div>
+
+@code {
+    private void Logout()
+    {
+        NavigationManager.NavigateTo("/login");
+    }
+    private void GoBack()
+    {
+        Navigation.NavigateTo("/adminpanel");
+    }
+    // API Configuration
+    private string apiUrl = "/api/Patient";
+
+    // Data
+    private List<HospitalPatient> Patients = new();
+    private List<HospitalPatient> FilteredPatients = new();
+
+    // UI State
+    private bool isLoading = false;
+    private string errorMessage = string.Empty;
+    private bool showModal = false;
+    private bool showDeleteConfirmation = false;
+    private bool isEditMode = false;
+    private string searchTerm = "";
+    private string _selectedGender = "";
+
+    // Validation
+    private bool nameValidationError = false;
+    private bool dobValidationError = false;
+    private bool genderValidationError = false;
+    private bool contactValidationError = false;
+    private bool addressValidationError = false;
+
+    // Working Objects
+    private HospitalPatient currentPatient = new();
+    private HospitalPatient patientToDelete = new();
+
+    private string SelectedGender
+    {
+        get => _selectedGender;
+        set
+        {
+            _selectedGender = value;
+            FilterPatients();
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadPatients();
+    }
+
+    private async Task LoadPatients()
+    {
+        isLoading = true;
+        errorMessage = string.Empty;
+        try
+        {
+            var response = await Http.GetFromJsonAsync<List<HospitalPatient>>(apiUrl);
+            Patients = response ?? new List<HospitalPatient>();
+            FilteredPatients = Patients;
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error loading patients: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private void FilterPatients()
+    {
+        FilteredPatients = Patients.Where(p =>
+            (string.IsNullOrEmpty(searchTerm) ||
+            p.FullName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+            p.PatientID.ToString().Contains(searchTerm)) &&
+            (string.IsNullOrEmpty(SelectedGender) || p.Gender == SelectedGender)
+        ).ToList();
+    }
+
+    private void ShowInsertModal()
+    {
+        currentPatient = new HospitalPatient { DOB = DateTime.Now };
+        isEditMode = false;
+        showModal = true;
+        ResetValidationErrors();
+    }
+
+    private void ShowEditModal(HospitalPatient patient)
+    {
+        currentPatient = new HospitalPatient
+            {
+                PatientID = patient.PatientID,
+                FullName = patient.FullName,
+                DOB = patient.DOB,
+                Gender = patient.Gender,
+                ContactNumber = patient.ContactNumber,
+                Address = patient.Address,
+                MedicalHistory = patient.MedicalHistory,
+                CreatedAt = patient.CreatedAt
+            };
+        isEditMode = true;
+        showModal = true;
+        ResetValidationErrors();
+    }
+
+    private void ResetValidationErrors()
+    {
+        nameValidationError = false;
+        dobValidationError = false;
+        genderValidationError = false;
+        contactValidationError = false;
+        addressValidationError = false;
+    }
+
+    private void CloseModal()
+    {
+        showModal = false;
+    }
+
+    private async Task SavePatient()
+    {
+        // Validate inputs
+        nameValidationError = string.IsNullOrWhiteSpace(currentPatient.FullName);
+        dobValidationError = currentPatient.DOB == default;
+        genderValidationError = string.IsNullOrWhiteSpace(currentPatient.Gender);
+        contactValidationError = string.IsNullOrWhiteSpace(currentPatient.ContactNumber);
+        addressValidationError = string.IsNullOrWhiteSpace(currentPatient.Address);
+
+        if (nameValidationError || dobValidationError || genderValidationError ||
+            contactValidationError || addressValidationError)
+        {
+            return;
+        }
+
+        isLoading = true;
+        errorMessage = string.Empty;
+
+        try
+        {
+            HttpResponseMessage response;
+
+            if (isEditMode)
+            {
+                response = await Http.PutAsJsonAsync($"{apiUrl}/{currentPatient.PatientID}", currentPatient);
+            }
+            else
+            {
+                currentPatient.CreatedAt = DateTime.Now;
+                response = await Http.PostAsJsonAsync(apiUrl, currentPatient);
+            }
+
+            if (response.IsSuccessStatusCode)
+            {
+                await LoadPatients(); // Refresh the list
+                CloseModal();
+            }
+            else
+            {
+                errorMessage = await response.Content.ReadAsStringAsync();
+                if (string.IsNullOrWhiteSpace(errorMessage))
+                {
+                    errorMessage = "Operation failed. Please try again.";
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error saving patient: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private void ShowDeleteModal(HospitalPatient patient)
+    {
+        patientToDelete = patient;
+        showDeleteConfirmation = true;
+    }
+
+    private void CloseDeleteModal()
+    {
+        showDeleteConfirmation = false;
+    }
+
+    private async Task ConfirmDelete()
+    {
+        isLoading = true;
+        errorMessage = string.Empty;
+
+        try
+        {
+            var response = await Http.DeleteAsync($"{apiUrl}/{patientToDelete.PatientID}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                await LoadPatients(); // Refresh the list
+            }
+            else
+            {
+                errorMessage = "Failed to delete patient. Please try again.";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error deleting patient: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+            CloseDeleteModal();
+        }
+    }
+
+    private void CloseModalIfBackdrop(MouseEventArgs args)
+    {
+        if (showModal) showModal = false;
+        else if (showDeleteConfirmation) showDeleteConfirmation = false;
+    }
+
+    public class HospitalPatient
+    {
+        public int PatientID { get; set; }
+        public string FullName { get; set; } = string.Empty;
+        public DateTime DOB { get; set; }
+        public string Gender { get; set; } = string.Empty;
+        public string ContactNumber { get; set; } = string.Empty;
+        public string Address { get; set; } = string.Empty;
+        public string MedicalHistory { get; set; } = string.Empty;
+        public DateTime CreatedAt { get; set; }
+    }
+}
